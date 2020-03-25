@@ -25,7 +25,7 @@ public class payment {
     @Column(name = "date_of_birth")
     private Date date_of_birth;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "payment")
+      @OneToMany(fetch = FetchType.LAZY, mappedBy = "payment")
     private Set<order> orders = new HashSet<>();
 
     public payment(String card_type, Long card_number, String cvv, String name_on_card, Date expired_date, Date date_of_birth) {

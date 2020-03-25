@@ -20,16 +20,11 @@ public class role implements Serializable{
     private Long role_id;
     @Column(name = "role_name")
     private String role_name;
-
-    public Set<user> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<user> users) {
-        this.users = users;
-    }
-
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role", /* Tạo ra một cái Join Table tên là "userrole" */
+            joinColumns = @JoinColumn(name = "role_id"), /* Trong đó, foreign key chính là user_id trỏ tới class hiện tại (User) */
+            inverseJoinColumns = @JoinColumn(name = "user_id" /* Khóa ngoại thứ 2 trỏ tới khóa chính của bảng Role */)
+    )
     private Set<user> users = new HashSet<>();
 
     public role(String role_name) {

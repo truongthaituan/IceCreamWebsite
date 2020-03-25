@@ -29,12 +29,17 @@ public class user {
     @Column(name = "avatar")
     private String avatar;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", /* Tạo ra một cái Join Table tên là "userrole" */
-            joinColumns = @JoinColumn(name = "user_id"), /* Trong đó, foreign key chính là user_id trỏ tới class hiện tại (User) */
-            inverseJoinColumns = @JoinColumn(name = "role_id" /* Khóa ngoại thứ 2 trỏ tới khóa chính của bảng Role */)
-    )
+    public Set<role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<role> roles) {
+        this.roles = roles;
+    }
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<role> roles = new HashSet<>();
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<recipe> recipes = new HashSet<>();
     public user(String userName, Boolean status, String password, String phone_number, String avatar) {

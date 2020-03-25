@@ -22,7 +22,6 @@ public class order_details {
     private Float price;
     @Column(name = "notes")
     private String notes;
-
     public order_details(order order, recipe recipe, Integer quantity, Float price, String notes) {
         this.order = order;
         this.recipe = recipe;

@@ -19,28 +19,8 @@ import java.util.Optional;
 public class userController {
     @Autowired
      userService userService;
-//
-//    @Autowired
-//    private JwtUtil jwtUtil;
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
-//
-//    @GetMapping("/")
-//    public String welcome() {
-//        return "Welcome to javatechie !!";
-//    }
-//
-//    @PostMapping("/authenticate")
-//    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
-//        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
-//            );
-//        } catch (Exception ex) {
-//            throw new Exception("inavalid username/password");
-//        }
-//        return jwtUtil.generateToken(authRequest.getUserName());
-//    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users", method = RequestMethod.GET)
     public ResponseEntity<List<user>> findRole() {
         List<user> users = userService.findAll();
@@ -49,6 +29,7 @@ public class userController {
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<user> getAdminByUsername(@PathVariable("id") Long id) {
         Optional<user> user = userService.getUserById(id);
@@ -57,9 +38,11 @@ public class userController {
         }
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/users",
             method = RequestMethod.POST)
     public ResponseEntity<user> createRole(@RequestBody user user, UriComponentsBuilder builder) {
+        user.setRoles(user.getRoles());
         user.setUserName(user.getUserName());
         user.setStatus(user.getStatus());
         user.setPhone_number(user.getPhone_number());
@@ -71,7 +54,7 @@ public class userController {
                 .buildAndExpand(user.getUser_id()).toUri());
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
     public ResponseEntity<user> updateRole(@PathVariable("id") Long id, @RequestBody user user) {
 
@@ -81,7 +64,7 @@ public class userController {
         }
 
         currentUser.get().setUserName(user.getUserName());
-        currentUser.get().setStatus(user.getStatus());
+        currentUser.get().setStatus(true);
         currentUser.get().setPhone_number(user.getPhone_number());
         currentUser.get().setPassword(user.getPassword());
         currentUser.get().setAvatar(user.getAvatar());
