@@ -1,0 +1,85 @@
+<style>.col button{
+    background-color: blue;
+    color: white;
+    width: 133%;
+  }
+  .button a{
+    float: right;
+    background-color: #00FF33;
+    border:1px solid white;
+    width: 100px;
+    text-align: center;
+    font-size: 15px;
+   color: blue;
+  }
+  </style>
+<form  #recipeForm="ngForm" (ngSubmit)="onSubmit(recipeForm)" class="appointment-form" style="color: #555555;">
+<div id="content" style="margin-top: -5.6px;margin-left: 1px;">
+    <div class="parent">
+       
+        <div class="box-one" style="font-size: 15px;">
+            <h3 style="color: yellow;font-size: large;">Feedback ID: {{feedbackService.feedback.feedbackId}}</h3>
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Customer</label>
+                    <input class="form-control" type="text" name="customerId" #name="ngModel"
+                    [(ngModel)]="feedbackService.feedback.order.customer.customerId" style="font-size: 15px;" required readonly/>            
+                 
+                      </div>            
+                    </div>
+                <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4"> Order ID </label>
+                    <input class="form-control" type="text" name="orderId" #name="ngModel"
+                    [(ngModel)]="feedbackService.feedback.order.id" style="font-size: 15px;" required readonly/>   
+                    <!-- <select  class="form-control" [(ngModel)]="orderService.order.customer.customerId" name="customerId" style="color: #495057;
+                    font-size: 15px;height: 34px;border-radius: 3px;" >
+                 <option *ngFor ="let user of userService.users"
+                 value="{{user.userId}}">{{user.userName}}</option>
+                </select>                  -->
+                </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Details</label>
+                    <textarea class="form-control" type="text" name="details" #name="ngModel"
+                    [(ngModel)]="feedbackService.feedback.details" style="font-size: 15px;" required ></textarea>            
+                    <!-- <select class="form-control" [(ngModel)]="recipeService.recipe.icecream"  name="icecreamId" style="color: #495057;
+                    font-size: 15px;height: 34px;border-radius: 3px;" >
+               <option *ngFor ="let icecream of iceCreamService.Icecreams"
+               value="{{icecream.id}}">{{icecream.name}}</option>
+                </select>       -->
+                </div>            
+                    </div>
+                <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Create Date</label>
+                    <input class="form-control" type="text" name="createDate" #name="ngModel"
+                    [(ngModel)]="feedbackService.feedback.createDate" style="font-size: 15px;" required>               
+                </div>
+          </div>
+          </div>     
+     
+          <div style="margin-top:30px;">
+            <div class="row">
+                <div class="col-sm-4">
+                    <button class="contact-link" target="_blank"  type="submit" style="color: black;">Edit</button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="contact-link" target="_blank" type="button" (click) = "cancel();" style="color: black;"> Cancel</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="box-two">
+         
+        
+        </div>
+
+      </div>
+  </div>
+  </form>
+  <!-- partial -->

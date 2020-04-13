@@ -1,0 +1,206 @@
+<style>
+#nav-link{
+  color: #330066;
+}
+#nav-link:hover {
+  color: #66CCCC;
+}
+#buynow{
+   color: black;
+}
+#buynow:hover{
+  color:#66CCCC;
+}
+
+</style>
+<body>
+  <!-- header -->
+  <header>
+    <nav class="navbar navbar-expand-lg px-4">
+      <a class="navbar-brand" (click) = "moveToHomePage();"><img src="../../../assets/images/logo.png" class="imgLogo" alt=""></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav">
+        <span class="toggler-icon"><i class="fas fa-bars"></i></span>
+      </button>
+      <div class="collapse navbar-collapse" id="myNav">
+        <ul class="navbar-nav mx-auto text-capitalize">
+          <li class="nav-item" *ngIf=" roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) ="moveToUserProfile(userName);">Profile</a>
+          </li>&nbsp;
+          <li class="nav-item" *ngIf="roles.includes('ROLE_CUSTOMER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) ="moveToProfile(userName);">Profile</a>
+          </li>&nbsp;
+          <li class="nav-item"  *ngIf="roles.includes('ROLE_CUSTOMER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToIcecream();" >OrderIcecream</a>
+          </li>&nbsp;
+          <li class="nav-item"  *ngIf="roles.includes('ROLE_CUSTOMER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToOrderHistory();" >Order</a>
+          </li>&nbsp;
+          <li class="nav-item"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminUser();">user</a>
+          </li>&nbsp;
+          <li class="nav-item" *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminCustomer();">customer</a>
+          </li>&nbsp;
+          <li class="nav-item"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminRecipe();">recipe</a>
+          </li>&nbsp;
+          <li class="nav-item" *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminFeedback();">feedback</a>
+          </li>&nbsp;
+          <li class="nav-item"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminOrder();">order</a>
+          </li>&nbsp;
+          <li class="nav-item" *ngIf="userName == null">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToLogin();">register</a>
+          </li>&nbsp;
+          <li class="nav-item"  *ngIf="userName == null">
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToLogin();">login</a>
+          </li>&nbsp;
+          <li class="nav-item">
+            <a class="nav-link" id = "nav-link" type="button" 
+             *ngIf="userName != null && statusLogin == 'true'" style="color: darkgreen;">Welcome {{userName}}</a>
+          </li>&nbsp;
+          <li class="nav-item">
+            <a class="nav-link" id = "nav-link" type="button"  (click) = "logout();"
+             *ngIf="userName != null && statusLogin == 'true'" style="color: darkgreen;">Logout</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">login</a>
+          </li> -->
+        </ul>
+        <div class="nav-info-items d-none d-lg-flex ">
+          <!-- single info -->
+          <!-- <div class="nav-info align-items-center d-flex justify-content-between mx-lg-5">
+            <span class="info-icon mx-lg-3"><i class="fas fa-phone"></i></span>
+            <p class="mb-0" style="font-size: 15px;">+ 077 374  9328</p>
+          </div> -->
+          <!-- end of single info -->
+          <!-- single info -->
+          <div id="cart-info" class="nav-info align-items-center cart-info d-flex justify-content-between mx-lg-5" 
+           (click) = "moveToCartRecipe();">
+            <span class="cart-info__icon mr-lg-3"><i class="fas fa-shopping-cart" ></i></span>
+            <p class="mb-0 text-capitalize"><span class="item-count">0 </span> items - $<span class="item-total">0</span></p>
+          </div>
+          <!-- end of single info -->
+        </div>
+      </div>
+    </nav>
+    <!-- end of nav -->
+    <!-- banner  -->
+    <div class="container-fluid"> 
+      <div class="row max-height justify-content-center align-items-center" id = "banner_image" >
+        <div class="col-10 mx-auto banner text-center">
+          <h1 class="text-capitalize" style="color:#333333;">welcome to <strong class="banner-title ">CreamIce</strong></h1>
+          <a id = "buynow" type="button" (click) = "moveToOrderIcecream();" class="btn banner-link text-uppercase my-2"  >buy now</a>
+
+        </div>
+     <!-- <div id="cart" class="cart">
+          <div class="cart-item d-flex justify-content-between text-capitalize my-3">
+            <div class="item-text">
+              <p id="cart-item-title" class="font-weight-bold mb-0">Recipe Image</p>
+            </div>
+            <div class="item-text">
+              <p id="cart-item-title" class="font-weight-bold mb-0">Title and Price</p>
+            </div>
+            <div class="item-text">
+              <span id="cart-item-price" class="cart-item-price" class="mb-0">Quantity</span>
+            </div>
+            <div class="item-text">
+              <span id="remove" class="remove" class="mb-0" style="font-size: 15px;">Remove</span>
+            </div>
+          </div>
+
+          <div class="cart-item d-flex justify-content-between text-capitalize my-3" *ngFor = "let recipe of CartRecipe">
+            <img src="../../../assets/{{recipe.image}}" class="img-fluid rounded-circle" id="item-img" alt="" style="width: 50px;">
+            <div class="item-text"  style="text-align: center;">
+
+              <p id="cart-item-title" class="font-weight-bold mb-0">{{recipe.title}}</p>
+              <span>$</span>
+              <span id="cart-item-price" class="cart-item-price" class="mb-0">{{recipe.price}}</span>
+            </div>
+            <div class="item-text"  style="text-align: center;">
+              <span id="cart-item-quantity" class="cart-item-quantity" class="mb-0">{{recipe.quantity}}</span>
+            </div>
+            <a href="#" id='cart-item-remove' class="cart-item-remove">
+              <i class="fas fa-trash"></i>
+            </a>
+          </div>
+   
+       
+          <div class="cart-total-container d-flex justify-content-around text-capitalize mt-5" >
+            <h5 style="font-size: 15px;">total</h5>
+            <h5 style="font-size: 15px;"> $ <strong id="cart-total" class="font-weight-bold" >10.00</strong> </h5>
+          </div>
+
+          <div class="cart-buttons-container mt-3 d-flex justify-content-between">
+            <a href="#" id="clear-cart" class="btn btn-outline-secondary btn-black text-uppercase" style="font-size: 15px;">clear cart</a>
+            <a href="#" class="btn btn-outline-secondary text-uppercase btn-pink" style="font-size: 15px;">checkout</a>
+          </div>
+
+        </div> -->
+      </div>
+    </div>
+    <!--end of  banner  -->
+  </header>
+  <!-- header -->
+
+<router-outlet></router-outlet>
+<!-- Footer -->
+<footer class="page-footer font-small cyan darken-3"  style="background-color: #006972;">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Grid row-->
+    <div class="row" style="text-align: center;">
+
+      <!-- Grid column -->
+      <div class="col-md-12 py-5">
+        <div class="mb-5 flex-center">
+
+          <!-- Facebook -->
+          <a class="fb-ic">
+            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Twitter -->
+          <a class="tw-ic">
+            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!-- Google +-->
+          <a class="gplus-ic">
+            <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Linkedin -->
+          <a class="li-ic">
+            <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <!--Pinterest-->
+          <a class="pin-ic">
+            <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+          </a>
+        </div>
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row-->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3" style="background-color: #08292C;font-size: large;">
+    <a href="https://mdbootstrap.com/"> IceCream.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</body>

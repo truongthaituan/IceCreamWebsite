@@ -1,0 +1,132 @@
+<style>.col button{
+    background-color: blue;
+    color: white;
+    width: 133%;
+  }
+  .button a{
+    float: right;
+    background-color: #00FF33;
+    border:1px solid white;
+    width: 100px;
+    text-align: center;
+    font-size: 15px;
+   color: blue;
+  }
+  </style>
+<form  #recipeForm="ngForm" (ngSubmit)="onSubmit(recipeForm)" class="appointment-form" style="color: #555555;">
+<div id="content" style="margin-top: -5.6px;margin-left: 1px;">
+    <div class="parent">
+       
+        <div class="box-one" style="font-size: 15px;">
+            <h3 style="color: yellow;font-size: large;">Recipe: {{recipeService.recipe.title}}</h3>
+          <div class="row">
+          
+                <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4"> Author </label>
+                    <!-- <input class="form-control" type="text" name="userId" #name="ngModel"
+                    [(ngModel)]="recipeService.recipe.userId" style="font-size: 15px;" required />    -->
+                    <select  class="form-control" [(ngModel)]="recipeService.recipe.user" name="userId" style="color: #495057;
+                    font-size: 15px;height: 34px;border-radius: 3px;" >
+                 <option *ngFor ="let user of userService.users"
+                 value="{{user.userId}}">{{user.userName}}</option>
+                </select>                 
+                </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">IceCream</label>
+                    <!-- <input class="form-control" type="text" name="icecreamId" #name="ngModel"
+                    [(ngModel)]="recipeService.recipe.icecreamId" style="font-size: 15px;" required />             -->
+                    <select class="form-control" [(ngModel)]="recipeService.recipe.icecream"  name="icecreamId" style="color: #495057;
+                    font-size: 15px;height: 34px;border-radius: 3px;" >
+               <option *ngFor ="let icecream of iceCreamService.Icecreams"
+               value="{{icecream.id}}">{{icecream.name}}</option>
+                </select>      
+                </div>            
+                    </div>
+                <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Title</label>
+                    <input class="form-control" type="text" name="title" #name="ngModel"
+                    [(ngModel)]="recipeService.recipe.title" style="font-size: 15px;" required>               
+                </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Price</label>
+                    <input class="form-control" type="text" name="price" #name="ngModel"
+                    [(ngModel)]="recipeService.recipe.price" style="font-size: 15px;" required>            
+                      </div>            
+                    </div>
+                <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Status</label>
+                    <select class="form-control"name="status" [(ngModel)]="recipeService.recipe.status" style="color: #495057;
+                    font-size: 15px;border-radius: 3px;height: 34px;" >
+                <option value="true">Enable</option>
+                <option value="false">Disabled</option>
+                </select>              
+                </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">View Count</label>
+                    <input class="form-control" type="text" name="viewCount" #name="ngModel"
+                    [(ngModel)]="recipeService.recipe.viewCount" style="font-size: 15px;" required />            
+                      </div>            
+                    </div>
+                <div class="col-sm-6">
+                <div class="form-group purple-border">
+                    <label for="exampleFormControlTextarea4">Upload Date</label>
+                    <input class="form-control" type="text" name="uploadDate" #name="ngModel"
+                    [(ngModel)]="recipeService.recipe.uploadDate" style="font-size: 15px;" required />               
+                </div>
+          </div>
+          </div>        
+          <div class="form-group purple-border">
+            <label for="exampleFormControlTextarea4">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea4"  name="description" #name="ngModel"  style="font-size: 15px;"
+            [(ngModel)]="recipeService.recipe.description" rows="3"></textarea>
+          </div>
+          
+          <div class="form-group green-border-focus">
+            <label for="exampleFormControlTextarea5">Details</label>
+            <textarea class="form-control" id="exampleFormControlTextarea5"  name="details" #name="ngModel" style="font-size: 15px;"
+            [(ngModel)]="recipeService.recipe.details" rows="3"></textarea>
+          </div>
+          <div style="margin-top:30px;">
+            <div class="row">
+                <div class="col-sm-3">
+                    <button class="contact-link" target="_blank"  type="submit" style="color: black;"> Edit</button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="contact-link" target="_blank" type="button" (click) = "cancel();" style="color: black;"> Cancel</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="box-two">
+          <div class="image" >
+          <img id="output"  src="../../../assets/{{recipeService.recipe.image}}">
+                <input name="image" type="file" accept="image/*"   style="font-size: 12px;color: black;font-weight: 500;"
+                onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"/>
+          </div>
+        
+        </div>
+
+      </div>
+  </div>
+  </form>
+  <!-- partial -->
+  <div *ngIf="statusAddRecipe" name="alertSucess" class="alert alert-success" role="alert" 
+  style=" position: fixed;width: 50%;bottom: 0;left: 10px;z-index: 1;color: yellow;border-color: transparent;
+  background-color: green;font-size: large;">
+    {{alertMessage}}
+</div>

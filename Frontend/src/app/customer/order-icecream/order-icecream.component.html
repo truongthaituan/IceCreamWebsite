@@ -1,0 +1,92 @@
+<style>.col button{
+    background-color: blue;
+    color: white;
+    width: 133%;
+  }
+  .button a{
+    float: right;
+    background-color: #00FF33;
+    border:1px solid white;
+    width: 100px;
+    text-align: center;
+    font-size: 15px;
+   color: blue;
+  }
+  </style>
+
+<div id="content" style="margin-top: 10px;margin-left: 1px;">
+    <div class="container">
+        <div class="row">
+          
+            <div class="col">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3" *ngFor = "let recipe of recipeService.recipes | paginate: { itemsPerPage: 6,currentPage: p }">
+                        <div class="card">
+                            <img class="card-img-top" src="../../../assets/{{recipe.image}}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title" style="text-align: center;">
+                                    <div class="row">
+                                        <div class="col-sm-8">  
+                                             <a href="product.html" title="View Product" >{{recipe.title}}</a>
+                                            </div>
+                                            <div class="col-sm-4">  
+                                                <p>{{recipe.price | currency:"USD" }}</p>
+                                               </div>
+                                    </div>
+                                 
+                                </h4>
+                                
+                                <form class="cart" method="post" enctype='multipart/form-data' #form="ngForm" (ngSubmit)="addToCart(recipe,form.value)">
+                                <div class="row">
+                                    <div class="col"> 
+                                     <input type="number" id = "countRecipe"  min="1" max="10" placeholder="1" 
+                                     required  name="quantity" (change)="getcountDetail(recipe,$event)" ngModel
+                                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                      class="countRecipe" style="text-align: center;font-size: 11px;"/>
+                                    </div>
+                                    <div class="col">
+                                        <button  type="submit" class="btn btn-success" style="width: 103px;background-color: green;font-size: 15px;">Add to cart</button>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+            <!-- <div class="col-12">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div> -->
+           
+        </div>
+        <br>
+        <div style="font-size: 15px;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" 
+  style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;color: yellow;border-color: transparent;
+  background-color: green;font-size: large;">
+    {{alertMessage}}
+</div>
+<div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" 
+style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;color: yellow;background-color: transparent;
+background-color: blueviolet;font-size: large;">
+    {{alertMessage}}
+</div>
+  <!-- partial -->

@@ -1,0 +1,173 @@
+<!-- -->
+<div class="checkout">
+    <div class="row">
+     
+
+        <div class="back-cart" style="font-size: 15px;">
+            <a type = "button" (click) = "backToCart();"><i class="ion-ios-cart"></i> Back to Cart </a>
+          </div>
+        <div class="col-sm-8">
+              <div class="your-details" >
+                <h2> <i class="ion-person"></i> Step 1 - Your Details </h2>
+                <hr>
+
+                <div class="your-firstname" >
+                  <p class="lable1"> UserName</p>
+                  <input type="text" name="userName" id="userName" class="cat_textbox" value="{{customerService.customer?.userName}}" maxlength="255"  />
+                </div>
+            
+                <div class="your-lastname">
+                  <p class="lable1"> Your Email</p>
+                  <input type="text" name="email" id="email" class="cat_textbox" value="{{customerService.customer?.email}}" maxlength="255"/>
+                </div>
+            
+                <div class="your-dob">
+                  <p class="lable1"> Your Date of Birth</p>
+                  <input type="text" name="dateOfBirth" id="dateOfBirth" class="cat_textbox" 
+                  style="background-color: #fff;" onfocus="displayDatePicker('DOB');return false;" value="{{customerService.customer?.dateOfBirth}}" />
+                </div>
+            
+                <div class="your-email">
+                  <p class="lable1"> Your Phone</p>
+                  <input type="text" name="phone" id="phone" class="cat_textbox" maxlength="255" value="{{customerService.customer?.phone}}" />
+                </div>
+            
+                <div class="your-homephone">
+                  <p class="lable1">Your Address</p>
+                  <input type="text" name="address" id="address" class="cat_textbox" maxlength="255" value="{{customerService.customer?.address}}"  />
+                </div>
+            
+                <div class="your-homephone">
+                  <p class="lable1"> Gender</p>
+                  <input type="text" name="gender" id="gender" class="cat_textbox" maxlength="255"  value="{{customerService.customer?.gender ? 'Male' : 'Female'}}" />
+                </div>
+            
+              </div>
+
+
+
+            
+              <div class="payment-option">
+                <h2><i class="ion-ios-list-outline"></i>Step 2 - Payment Options</h2>
+                <strong> Please select your preferred payment option:</strong>
+                <br>
+                <div class="pop">
+                  <form [formGroup] = "orderForm">
+                <input checked="checked" type="radio" formControlName="paymentOption" id="PaymentMethodType_1" 
+                value="Credit/Debit Card" /><i class="fa fa-credit-card"></i> Credit/Debit Card
+                <input type="radio" formControlName="paymentOption" id="PaymentMethodType_5" value="Paypal" />
+                <img src="../../../assets/images/paypal.png" />Paypal
+                <input type="radio" formControlName="paymentOption" id="PaymentMethodType_9" value="Gift Voucher" />
+                <i class="fa fa-gbp"></i>Gift Voucher
+             
+                <br>
+                
+                <div class="your-firstname" >
+                  <p class="lable1"> deliveryDetail</p>
+                  <input type="text" formControlName="deliveryDetail" id="deliveryDetail" class="cat_textbox"   />
+                </div>                
+                  <div class="your-firstname" >
+                    <p class="lable1">notes </p>
+                    <input type="text" formControlName="notes" id="notes" class="cat_textbox"   />
+                  </div> 
+                  </form>                   
+                </div>
+              </div>
+            
+
+
+
+              <div class="cart-payment">
+                <h2> <i class="ion-card"></i> Step 3 - Payment Details</h2>
+                <hr>
+                <form [formGroup]="paymentForm">
+                  <div class="type">
+                  <p class="lable1">Select your card type:*</p>
+                  <input type="radio"  formControlName="cardType" class="cat_radio" value="Visa">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1280px-Visa.svg.png" />
+                  <input type="radio"  formControlName="cardType" class="cat_radio1" value="Master">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1280px-MasterCard_Logo.svg.png" />
+                  </div>
+            
+                <div class="cardname">
+                  <p class="lable1"> Name on Card </p>
+                  <input type="text" formControlName="nameOnCard" id="nameOnCard" class="cat_textbox" autocomplete="off" />
+                </div>
+            
+                <div class="cardnumber">
+                  <p class="lable1">Card number:</p>
+                  <input type="text" formControlName="cardNumber" id="cardNumber" class="cat_textbox" autocomplete="off" maxlength="16" />
+                </div>
+            
+                <div class="expiry">
+                  <p class="lable1"> Card Expiry Date: </p>
+                  <input type="text" formControlName="expiredDate" id="expiredDate" class="cat_textbox" autocomplete="off" maxlength="16" />
+
+                </div>
+            
+                <div class="cvv">
+                  <p class="lable1"> CCV: </p>
+                  <input type="text" formControlName="cvv" id="cvv" class="cat_textbox" autocomplete="off" maxlength="4" />
+                </div>
+                <!-- <input class="cat_button" type="submit" (click) = "createPayment();" value="Make Payment"/> -->
+              </form>
+              </div> 
+            
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <div class="your-order">
+                <h3> <i class="ion-person"></i> Your Order ({{TongCount}} recipes) </h3>
+                <hr>
+                <div id="table" style="text-align: center;">
+                    <table>
+                        <tr class="tabletitle">
+                            <td class="item"><h4>Recipe</h4></td>
+                            <td class="item"><h4>Price</h4></td>
+                            <td class="Hours"><h4>Quantity</h4></td>
+                            <td></td>
+                            <td class="Rate"><h4>Sub Total</h4></td>
+                        </tr>
+
+                        <tr class="service" style="font-size: 28px;" *ngFor = "let recipe of CartRecipe">
+                            <td class="tableitem"><p class="itemtext">{{recipe.title}}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{recipe.price}}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{recipe.quantity}}</p></td>
+                            <td></td>
+                            <td class="tableitem"><p class="itemtext">{{recipe.price * recipe.quantity | currency : "USD"}}</p></td>
+                        </tr>                         
+                        <!-- <tr class="tabletitle">
+                            <td></td>
+                            <td></td>
+                            <td class="Rate"><h4>Tax</h4></td>
+                            <td></td>
+                            <td class="payment"  style="font-size: 15px;"><h4>$1.00</h4></td>
+                        </tr>
+                        -->
+                        <tr class="tabletitle">
+                            <td></td>
+                            <td></td>
+                            <td class="Rate"><h4>Total</h4></td>
+                            <td></td>
+                            <td class="payment"><h4>{{TongTien | currency : "USD"}}</h4></td>
+                        </tr>
+
+                    </table>
+                </div><!--End Table-->
+              </div>
+        </div>
+       
+        <form #form="ngForm" (ngSubmit)="SendMail(form.value)">
+        <div class="submit">
+            <input class="cat_button" type="submit" (click) = "createPayment();" value="Confirm Details & Make Payment" id="catwebformbutton"/>
+          </div>
+          </form> 
+    </div> 
+  </div>
+  <div *ngIf="statusPayment" name="alertSucess" class="alert alert-success" role="alert" 
+  style=" position: fixed;width: 50%;bottom: 0;left: 10px;z-index: 1;color: yellow;border-color: transparent;
+  background-color: green;font-size: large;">
+    {{alertMessage}}
+</div>

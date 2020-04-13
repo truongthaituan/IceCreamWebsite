@@ -1,0 +1,74 @@
+<div id="page-content" role="main">
+
+    <div class="container mb-4">
+        <div *ngIf="checkViewCart">
+            <div style="background-color: #EEE;height:60px;width: 100%;text-align: center;font-size: 17px;color: #0D3B3E;">
+                <b style="top:15px;position: relative;">Giỏ hàng của bạn đang trống </b></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped" style="color: black;font-size: 17px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Recipe Image</th>
+                                <th scope="col">Recipe Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-right">Sub Total</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let recipe of CartRecipe">
+
+                                <td><img src= "../../../assets/{{recipe.image}}" (click)=ViewBookDetail(cartbook._id) style="width: 130px;"/> </td>
+                                <td class="text" >{{recipe.title}}</td>
+                                <td class="text">{{recipe.price}}</td>
+                                <td><input class="form-control" type="text" value="{{recipe.quantity}}" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                     (change)="getCountUpdate($event,recipe.id)" style="text-align: center; font-size: 18px;" /></td>
+                                <td class="text-right">{{recipe.price * recipe.quantity | currency:"USD"}}</td>
+                                <td class="text-right"><button class="btn btn-sm btn-danger" type="button" (click)="deleteCartRecipe(recipe.id)"><i class="fa fa-trash-o" style="font-size:20px;"></i> 
+                        </button> </td>
+                                <td><button class="btn btn-sm btn-info" type="button" (click)="updateCartRecipe(recipe.id)"><i class="fa fa-edit"  style="font-size:20px;"></i> 
+                        </button> </td>
+                            </tr>                 
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right"><strong>{{TongTien|currency:"USD"}}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-2">
+                <div class="row">
+                    <div class="col-sm-12  col-md-6">
+                        <button id="continue" class="btn btn-block btn-light" (click)="moveToOrderIcecream()" style="font-size: 15px;">Continue Shopping</button>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-right">
+                        <button *ngIf="checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="checkoutWhenNull()">Checkout</button>
+                        <button *ngIf="!checkViewCart" class="btn btn-lg btn-block btn-success text-uppercase" type="button" (click)="moveToPayment()">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" 
+style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;color: yellow;border-color: transparent;
+background-color: green;font-size: large;">
+  {{alertMessage}}
+</div>
+<div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" 
+style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;color: yellow;background-color: transparent;
+background-color: blueviolet;font-size: large;">
+  {{alertMessage}}
+</div>
+

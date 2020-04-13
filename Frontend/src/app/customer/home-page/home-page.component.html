@@ -1,0 +1,104 @@
+
+
+  <!-- about us -->
+  <section class="about py-5" id="about">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-10 mx-auto col-md-6 my-5">
+          <h1 class="text-capitalize">about <strong class="banner-title ">us</strong></h1>
+          <p class="my-4 text-muted w-75" style="font-size: 15px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, aliquam voluptas
+            beatae vitae expedita consectetur nesciunt quia deserunt asperiores facere fuga dicta fugiat corrupti et omnis
+            porro at dolorum! Ad!</p>
+
+        </div>
+        <div class="col-10 mx-auto col-md-6 align-self-center my-5">
+          <div class="about-img__container">
+            <img src="../../../assets/images/IceCreambaner.gif" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end of about us -->
+
+
+  <!-- store -->
+  <section id="store" class="store py-5">
+    <div class="container">
+      <!-- section title -->
+      <div class="row">
+        <div class="col-10 mx-auto col-sm-6 text-center">
+          <h1 class="text-capitalize">our <strong class="banner-title ">store</strong></h1>
+        </div>
+      </div>
+      <!-- end of section title -->
+      <!--filter buttons -->
+      <div class="row">
+        <div class=" col-lg-8 mx-auto d-flex justify-content-around my-2 sortBtn flex-wrap" > 
+          <a href="#" class="btn btn-outline-secondary btn-black text-uppercase filter-btn m-2" data-filter="all"  style="font-size: 16px;"> all</a>
+          <a href="#" class="btn btn-outline-secondary btn-black text-uppercase filter-btn m-2" data-filter="cakes"  style="font-size: 16px;">cakes</a>
+          <a href="#" class="btn btn-outline-secondary btn-black text-uppercase filter-btn m-2" data-filter="cupcakes"  style="font-size: 16px;">cupcakes</a>
+          <a href="#" class="btn btn-outline-secondary btn-black text-uppercase filter-btn m-2" data-filter="sweets" style="font-size: 16px;">sweets</a>
+          <a href="#" class="btn btn-outline-secondary btn-black text-uppercase filter-btn m-2" data-filter="doughnuts" style="font-size: 16px;">doughnuts</a>
+        </div>
+      </div>
+      <!-- search box -->
+      <div class="row">
+
+        <div class="col-10 mx-auto col-md-6">
+          <form>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend " >
+                <span class="input-group-text search-box" id="search-icon"  style="font-size: 18px;"><i class="fas fa-search"></i></span>
+              </div>
+              <!-- <input type="text" class="form-control" placeholder='item....' id="search-item"  style="font-size: 18px;"> -->
+              <input placeholder="item...." type="text" name="search" id="search-item" [(ngModel)]="searchText"
+               autocomplete="off"  style="font-size: 18px;border-color: lightslategrey;width: 80%;"/>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      <!--end of filter buttons -->
+      <!-- store  items-->
+      <div class="row" class="store-items" id="store-items">
+        <!-- single item -->
+        <div class="col-10 col-sm-6 col-lg-4 mx-auto my-3 store-item sweets" data-item="sweets"
+         *ngFor = "let recipe of recipeService.recipes | filter: searchText | paginate: { itemsPerPage: 3,currentPage: p }">
+          <div class="card ">
+            <div class="img-container">
+              <a (click) ="getCustomerRecipeById(recipe.id);"><img src="../../../assets/{{recipe.image}}" class="card-img-top store-img" alt=""></a>
+              <span class="store-item-icon">
+                <a type="button" (click) = "addToCart(recipe)"><i class="fas fa-shopping-cart"></i></a>
+              </span>
+            </div>
+            <div class="card-body" >
+              <div class="card-text d-flex justify-content-between text-capitalize" >
+                <h5 id="store-item-name">{{recipe.title}}</h5>
+                <h5 class="store-item-value">$ <strong id="store-item-price" class="font-weight-bold">{{recipe.price}}</strong></h5>
+
+              </div>
+            </div>
+          </div>
+          <!-- end of card-->
+        </div>
+        <!--end of single store item-->
+        </div>
+      </div>
+      <div style="font-size: 15px;">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </section>
+  <!--end of store items -->
+  <div *ngIf="alertSucess" name="alertSucess" class="alert alert-success" role="alert" 
+  style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;color: yellow;border-color: transparent;
+  background-color: green;font-size: large;">
+    {{alertMessage}}
+</div>
+<div *ngIf="alertFalse" name="alertFalse" class="alert alert-danger" role="alert" 
+style=" position: fixed;width: 50%;bottom: 0;left: 40px;z-index: 1;color: yellow;background-color: transparent;
+background-color: blueviolet;font-size: large;">
+    {{alertMessage}}
+</div>

@@ -1,0 +1,106 @@
+
+<style>
+    .col button{
+      background-color: blue;
+      color: white;
+      width: 125%;
+    }
+    .button a{
+      float: right;
+      background-color: #00FF33;
+      border:1px solid white;
+      width: 100px;
+      text-align: center;
+      font-size: 15px;
+     color: blue;
+    }
+  </style>
+    <div id="content" >
+      <div id="group_button"style="font-size:12px;
+      max-width: 1122px;margin-left: 5px;height: 40px;">
+        <div class="row">
+          <div class="col-sm-5" style="font-size: x-large;color: blue;">
+          User
+        </div>
+        <div style="font-size: medium;color: red;" *ngIf = "statusCRUD != ''">
+          {{statusCRUD}}
+        </div>
+          <div class="col-sm-5">
+            <div class="button" style="margin-top: 10px;">            
+              <a type="button" (click) ="insertUser();" *ngIf="roles.includes('ROLE_ADMIN')">Add</a>
+              <a type="button" (click) ="AccessDenied();" *ngIf="roles.includes('ROLE_USER') || roles.includes('ROLE_CUSTOMER')">Add</a>
+            </div>
+          </div>
+        </div>
+    </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort style="width: 100%;" id = "mytable">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> userId </th>
+        <td mat-cell *matCellDef="let row"> {{row.userId}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> UserName </th>
+        <td mat-cell *matCellDef="let row"> {{row.userName}}</td>
+      </ng-container>
+  
+      <!-- Column -->
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+        <td mat-cell *matCellDef="let row"> {{row.phoneNumber}} </td>
+      </ng-container>
+
+    <!-- Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let row" id="status">{{ row.status ? 'Active' : 'Locked'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="empty">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let row" id="status"> </td>
+      </ng-container>
+      
+    <ng-container matColumnDef="getdetails">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary"
+             (click)="getUserById(element.userId)">Get Details</button> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="remove">
+    <th mat-header-cell *matHeaderCellDef> Remove </th>
+    <td mat-cell *matCellDef="let element"> 
+      <button mat-raised-button color="primary"
+         (click)="deleteById(element.userId)"  *ngIf="roles.includes('ROLE_ADMIN')">Remove</button> 
+         <button mat-raised-button color="primary"
+         (click)="AccessDenied();" *ngIf="roles.includes('ROLE_USER') || roles.includes('ROLE_CUSTOMER')">Remove</button> 
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+  <th mat-header-cell *matHeaderCellDef> Action </th>
+  <td mat-cell *matCellDef="let element">
+     <button mat-raised-button color="primary"
+    id="block" style="background-color: red;" (click) = "blockUser(element.userId)"
+     *ngIf="roles.includes('ROLE_ADMIN')">Block</button>
+     <button mat-raised-button color="primary"
+     id="block" style="background-color: red;" (click) = "AccessDenied();" *ngIf="roles.includes('ROLE_USER') || roles.includes('ROLE_CUSTOMER')">Block</button>
+      &nbsp; 
+    <button mat-raised-button color="primary"
+      id="active" style="background-color: green;" (click) = "activeUser(element.userId)"  *ngIf="roles.includes('ROLE_ADMIN')">Active</button>
+      <button mat-raised-button color="primary"
+      id="block" style="background-color: green;" (click) = "AccessDenied();" *ngIf="roles.includes('ROLE_USER') || roles.includes('ROLE_CUSTOMER')">Active</button>
+     </td>
+</ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+    </div>
+  

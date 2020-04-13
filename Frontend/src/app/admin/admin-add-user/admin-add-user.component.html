@@ -1,0 +1,111 @@
+
+  <form [formGroup]="registerForm" class="appointment-form" style="color: #555555;">
+
+  <div id="content" style="margin-top: 6px;margin-left: 1px;">
+    <div class="parent">
+      <h4 style="text-align: center;color: #27AE61;" *ngIf="statusRegister == true">Đăng Ký Thành Công!</h4>
+      <h4 style="text-align: center;color: red;" *ngIf="errRegister != null">{{errRegister}}</h4>
+        <div class="box-one">
+       <br>
+       <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">UserName</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="userName" formControlName="userName" 
+                required style="font-size: 15px;width: 180px;">
+          </div>
+          </div>
+          <br>
+          
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Password</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="password" name="password" formControlName="password" 
+                style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;width: 290px;">Confirm Password</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="password"  formControlName="repassword" 
+                 style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Phone Number</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="phoneNumber" formControlName="phoneNumber" 
+                 style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Role</label>
+            </div>
+            <div class="col-sm-6" >
+              <!-- <input  class="form-control" type="text" name="donGiaMon"  placeholder="Nhập Tên Loại Sách"> -->
+                  <select name="roles"  formControlName="roles" style="color: #495057;
+                  font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" >
+              <!-- <option ></option> -->
+              <option *ngFor ="let role of roleService.roles"
+              value="{{role.id}}" style="color: black;">{{role.role_name}}</option>
+              </select>
+
+                <!-- <input class="form-control" type="text" name="status" #name="ngModel"
+                [(ngModel)]="userService.user.status" style="font-size: 15px;width: 180px;" required> -->
+          </div>
+          </div>
+  <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Status</label>
+            </div>
+         
+            <div class="col-sm-6">
+                <div class="form-group" >
+                    <select class="form-control" name="status" formControlName="status"
+                     style="font-size: 15px;width: 180px;height: 30px;">
+                      <option value="true">true</option>
+                      <option value="false">false</option>
+                    </select>
+                  </div>
+          </div>
+          </div>
+ 
+          <div style="margin-top:30px;">
+            <div class="row">
+                <div class="col-sm-6" style="text-align: center;">
+                    <button class="contact-link" target="_blank" type="button" (click) = "register();" style="color: black;"> Add</button>
+                </div>
+                <div class="col-sm-6" style="text-align: center;">
+                    <button class="contact-link" target="_blank" type="button" (click) = "cancel();" style="color: black;"> Cancel</button>
+                </div>
+            </div>
+        </div>
+     
+         
+        </div>
+        <div class="box-two">
+          <div class="image" >
+            <img id="output"  src="../../../assets/{{userService.user.avatar}}">
+            <input name="avatar" formControlName="avatar" type="file" accept="image/*"   style="font-size: 12px;color: black;font-weight: 500;"
+            onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+          </div>
+        
+        </div>
+  
+      </div>
+  </div>
+  </form>
+  <!-- partial -->

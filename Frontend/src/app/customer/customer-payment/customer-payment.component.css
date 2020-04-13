@@ -1,0 +1,579 @@
+ /* @import url(https://fonts.googleapis.com/css?family=Raleway:400,200,300,800);
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css); */
+ 
+ table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+   .tabletitle {
+    font-size: 20px;
+    background: #EEE;
+   
+  }
+ .service {
+    border-bottom: 1px solid #EEE;
+  }
+.item {
+    width: 24mm;
+  }
+.itemtext {
+    font-size: .5em;
+  }
+ .products{
+    width:100%;
+    float:left;
+    padding-bottom:3px;
+    border-bottom:3px solid #aaa;
+}
+.products .product_image{
+    width:20%;
+    float:left;
+    margin-left: 10%;
+}
+.products .product_details{
+    width:70%;
+    display: table;
+    vertical-align: middle;
+}
+.products .product_details span{
+    display:table-cell;
+    vertical-align: middle;
+    margin-top:30%;
+    font-size: 1.5em;
+    color:#aaa;
+}
+.totals{
+    width:100%;
+    float:left;
+    border-bottom:3px solid #aaa;
+    padding-bottom:5px;
+}
+.totals .subtitle{
+    font-size:2em;
+    display:block;
+    text-align: right;
+    color:#aaa;
+    width:95%;
+    margin-right:5%;
+}
+.totals .subtitle .sub_price{
+    font-style:italic;
+    width:100px;
+}
+
+
+
+
+p.lable1 {
+  font-size: 9pt;
+  margin-top: 2px;
+  padding-top: 0px;
+  margin-bottom: 2px;
+  text-indent: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+i {
+  padding-right: 20px;
+}
+
+.cat_textbox {
+  border-radius: 5px;
+}
+
+.checkout {
+  width: 95%;
+  margin: 0px auto;
+  font-family: 'Raleway', Arial, sans-serif;
+}
+
+.back-cart {
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  display: inline-block;
+  float: right;
+  text-align: right;
+}
+
+.back-cart a:hover {
+  text-align: center;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ccc;
+  font-weight: 600;
+}
+
+.back-cart a {
+  text-align: center;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #000;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  font-weight: 600;
+}
+
+.back-cart i {
+  padding-right: 2px;
+}
+
+.your-details {
+  width: 100%;
+  padding: 10px 10px 40px 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.your-order{
+    width: 100%;
+  padding: 10px 10px 40px 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.your-details h2 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.your-details hr {
+  border: 1px dashed #ccc;
+}
+
+.your-title {
+  width: 15%;
+  height: 40px;
+  margin-right: 10px;
+  display: inline-block;
+  float: left;
+}
+
+.your-title .cat_dropdown {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  color: #000;
+  font-size: 12pt;
+}
+
+.your-firstname {
+  width: 30%;
+  height: 35px;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+
+.your-firstname .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.your-lastname {
+  width: 30%;
+  height: 35px;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+
+.your-lastname .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.your-dob {
+  width: 20%;
+  height: 35px;
+  display: inline-block;
+  float: left;
+}
+
+.your-dob .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.your-email {
+  width: 30%;
+  height: 35px;
+  margin-top: 30px;
+  display: inline-block;
+  float: left;
+  margin-right: 10px
+}
+
+.your-email .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.your-homephone {
+  width: 25%;
+  height: 35px;
+  margin-top: 30px;
+  display: inline-block;
+  float: left;
+  margin-right: 10px
+}
+
+.your-homephone .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.your-address {
+  width: 100%;
+  padding: 10px 10px 40px 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.your-address h2 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.your-address hr {
+  border: 1px dashed #ccc;
+}
+
+.home-address {
+  width: 48%;
+  margin-top: 5px;
+  padding: 5px 5px 35px 5px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+
+.home-address p.title {
+  font-size: 12pt;
+}
+
+.home-address i {
+  padding-right: 2px;
+}
+
+.post-address {
+  width: 48%;
+  margin-top: 5px;
+  padding: 5px 5px 35px 5px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+
+.post-address p {
+  font-size: 9pt;
+}
+
+.post-address p.title {
+  font-size: 12pt;
+}
+
+.home-street {
+  width: 49%;
+  height: 35px;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  float: left;
+  padding-bottom: 30px;
+}
+
+.home-street .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.home-town {
+  width: 47%;
+  height: 35px;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  float: left;
+}
+
+.home-town .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.home-postcode {
+  width: 49%;
+  height: 35px;
+  margin-right: 10px;
+  margin-top: 0px;
+  display: inline-block;
+  float: left;
+}
+
+.home-postcode .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.home-county {
+  width: 47%;
+  height: 35px;
+  margin-right: 10px;
+  margin-top: 0px;
+  display: inline-block;
+  float: left;
+}
+
+.home-county .cat_textbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.home-country {
+  width: 99%;
+  height: 40px;
+  margin-right: 10px;
+  margin-top: 30px;
+  display: inline-block;
+  float: left;
+}
+
+.home-country .cat_dropdown {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  font-size: 12pt;
+  text-indent: 4px;
+}
+
+.post-address i {
+  padding-right: 6px;
+}
+
+.payment-option {
+  width: 100%;
+  padding: 10px 10px 40px 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.payment-option h2 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+
+.pop i{
+  font-size: 14pt;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 0px;
+}
+
+.pop input {
+  margin-right: 10px;
+}
+
+.pop {
+  margin-top: 20px;
+  margin-bottom: -20px;
+}
+
+.cart-payment {
+  width: 100%;
+  padding: 10px 10px 40px 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.cart-payment h2 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.cart-payment hr {
+  border: 1px dashed #ccc;
+}
+
+.type {
+  text-align: left;
+  width: 25%;
+  display: inline-block;
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.type select {
+  width: 100%;
+  margin: 10px;
+  font-size: 14px;
+  color: #000000;
+}
+
+.type img {
+  width: 50px;
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-right: 15px;
+}
+
+.email {
+  width: 0%;
+  overflow: hidden;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+
+.cardname {
+  width: 20%;
+  height: 35px;
+  margin-top: 10px;
+  text-align: left;
+  display: inline-block;
+  float: left;
+}
+
+.cardname .cat_textbox {
+  width: 100%;
+  height: 100%;
+  text-indent: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.cardnumber {
+  width: 20%;
+  height: 35px;
+  margin-top: 10px;
+  margin-left: 10px;
+  text-align: left;
+  display: inline-block;
+  float: left;
+}
+
+.cardnumber .cat_textbox {
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  text-indent: 5px;
+  border: 1px solid #ccc;
+}
+
+.expiry {
+  width: 20%;
+  height: 35px;
+  margin-top: 10px;
+  margin-left: 10px;
+  text-align: left;
+  display: inline-block;
+  float: left;
+}
+
+.expiry .cat_textbox {
+  width: 93%;
+  height: 100%;
+  font-size: 16px;
+  text-indent: 5px;
+  border: 1px solid #ccc;
+}
+
+
+
+.cvv {
+  text-align: left;
+  display: inline-block;
+  float: left;
+  margin-top: 10px;
+  width: 10%;
+  height: 35px;
+}
+
+.cvv .cat_textbox {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.submit {
+  width: 100%;
+  height: 50px;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.submit .cat_button {
+  width: 35%;
+  height: 100%;
+  font-size: 18px;
+  background: #fff;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 0px;
+}
+
+.submit .cat_button:hover {
+  width: 35%;
+  height: 100%;
+  font-size: 18px;
+  background: #393939;
+  color: #fff;
+  border: 2px solid #393939;
+  border-radius: 0px;
+  transition: background 0.5s, color 0.5s ease-in-out;
+}
+
+#catwebformbutton{
+  width: 300px;
+  float : right;
+}
