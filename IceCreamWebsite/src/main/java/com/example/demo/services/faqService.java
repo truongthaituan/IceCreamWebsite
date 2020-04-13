@@ -1,11 +1,13 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Faq;
+
 import java.util.List;
 import java.util.Optional;
-import com.example.demo.models.faq;
-public interface faqService {
-    List<faq> findAll();
-    Optional<faq> getFaqById(Long fag_id);
-    void saveOrUpdate(faq fag);
+
+public interface FaqService {
+    List<Faq> findAll();
+    Optional<Faq> getFaqById(Long fag_id);
+    void saveOrUpdate(Faq fag);
     void deleteFaq(Long fag_id);
 }

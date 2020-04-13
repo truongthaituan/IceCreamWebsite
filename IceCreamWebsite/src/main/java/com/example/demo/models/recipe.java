@@ -9,17 +9,17 @@ import java.util.Set;
 
 @Entity
 @Table(name = "recipe")
-public class recipe implements Serializable {
+public class Recipe implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "user_id",insertable = false, updatable = false)
-    user user;
+    @JoinColumn(name = "user_id")
+    private User user;
     @ManyToOne
-    @JoinColumn(name = "id",insertable = false, updatable = false)
-    icecream icecream;
+    @JoinColumn(name = "icecream_id")
+    private IceCream icecream;
     @Column(name = "title")
     private String title;
     @Column(name = "description")
@@ -30,33 +30,32 @@ public class recipe implements Serializable {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean status;
     @Column(name = "viewcount")
-    private Integer view_count;
+    private Integer viewCount;
     @Column(name = "image")
     private String image;
     @Column(name = "details")
     private String details;
     @Column(name = "upload_date")
-    private Date upload_date;
+    private Date uploadDate;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe")
-    Set<order_details> order_details;
+    Set<Order_details> order_details;
 
-    public recipe(user user, icecream icecream, String title, String description,
-                  Float price, Boolean status, Integer view_count, String image, String details, Date upload_date) {
+    public Recipe(User user, IceCream icecream, String title, String description,
+                  Float price, Boolean status, Integer viewCount, String image, String details, Date uploadDate) {
         this.user = user;
         this.icecream = icecream;
         this.title = title;
         this.description = description;
         this.price = price;
         this.status = status;
-        this.view_count = view_count;
+        this.viewCount = viewCount;
         this.image = image;
         this.details = details;
-        this.upload_date = upload_date;
+        this.uploadDate = uploadDate;
     }
 
-    public recipe() {
+    public Recipe() {
     }
-
 
     public Long getId() {
         return id;
@@ -66,19 +65,19 @@ public class recipe implements Serializable {
         this.id = id;
     }
 
-    public user getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(user user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public icecream getIcecream() {
+    public IceCream getIcecream() {
         return icecream;
     }
 
-    public void setIcecream(icecream icecream) {
+    public void setIcecream(IceCream icecream) {
         this.icecream = icecream;
     }
 
@@ -114,12 +113,12 @@ public class recipe implements Serializable {
         this.status = status;
     }
 
-    public Integer getView_count() {
-        return view_count;
+    public Integer getViewCount() {
+        return viewCount;
     }
 
-    public void setView_count(Integer view_count) {
-        this.view_count = view_count;
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
     }
 
     public String getImage() {
@@ -138,11 +137,11 @@ public class recipe implements Serializable {
         this.details = details;
     }
 
-    public Date getUpload_date() {
-        return upload_date;
+    public Date getUploadDate() {
+        return uploadDate;
     }
 
-    public void setUpload_date(Date upload_date) {
-        this.upload_date = upload_date;
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
     }
 }

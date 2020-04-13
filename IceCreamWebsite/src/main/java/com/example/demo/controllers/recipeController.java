@@ -1,7 +1,11 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.recipe;
-import com.example.demo.services.recipeService;
+import com.example.demo.common.MapperUtil;
+import com.example.demo.dto.RecipeDTO;
+import com.example.demo.dto.StatusCRUD;
+import com.example.demo.models.Recipe;
+import com.example.demo.services.RecipeService;
+import com.example.demo.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,59 +17,54 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
-
-@Controller
-public class recipeController {
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping(value = "/recipes")
+public class RecipeController {
     @Autowired
-    recipeService recipeService;
+    RecipeService recipeService;
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<RecipeDTO>> findRecipe() {
+        return new ResponseEntity<>(recipeService.findAll(), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(recipeService.getRecipeById(id), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/icecream/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RecipeDTO>> getRecipeByIceCreamId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(recipeService.getRecipeByicecreamId(id), HttpStatus.OK);
+    }
+    @RequestMapping(value = "",
+            method = RequestMethod.POST)
+    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody Recipe recipe, UriComponentsBuilder builder) {
+       RecipeDTO recipeDTO = recipeService.insertRecipe(recipe);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/{id}")
+                .buildAndExpand(recipe.getId()).toUri());
+        return new ResponseEntity<>(recipeDTO, HttpStatus.CREATED);
+    }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "recipes", method = RequestMethod.GET)
-    public ResponseEntity<List<recipe>> findFag() {
-        List<recipe> recipes = recipeService.findAll();
-        if (recipes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(recipes, HttpStatus.OK);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable("id") Long id, @RequestBody Recipe recipe) {
+        Recipe currentRecipe = recipeService.findRecipeById(id);
+        currentRecipe.setUser(recipe.getUser());
+        currentRecipe.setIcecream(recipe.getIcecream());
+        currentRecipe.setTitle(recipe.getTitle());
+        currentRecipe.setDescription(recipe.getDescription());
+        currentRecipe.setPrice(recipe.getPrice());
+        currentRecipe.setStatus(recipe.getStatus());
+        currentRecipe.setViewCount(recipe.getViewCount());
+        currentRecipe.setImage(recipe.getImage());
+        currentRecipe.setDetails(recipe.getDetails());
+        currentRecipe.setUploadDate(recipe.getUploadDate());
+        return new ResponseEntity<>(MapperUtil.recipeToDTO(recipeService.updateRecipe(currentRecipe)), HttpStatus.OK);
     }
-    @RequestMapping(value = "/recipes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<recipe> getRecipeyId(@PathVariable("id") Long id) {
-        Optional<recipe> recipe = recipeService.getRecipeById(id);
-        if (!((Optional) recipe).isPresent()) {
-            return new ResponseEntity<>(recipe.get(), HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(recipe.get(), HttpStatus.OK);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<StatusCRUD> deleteRecipe(@PathVariable("id") Long id) {
+        RecipeDTO recipe = recipeService.getRecipeById(id);
+        recipeService.deleteRecipe(id);
+        StatusCRUD statusCRUD = new StatusCRUD(("Delete Recipe Successfully"));
+        return new ResponseEntity<>(statusCRUD, HttpStatus.OK);
     }
-//    @RequestMapping(value = "/recipes",
-//            method = RequestMethod.POST)
-//    public ResponseEntity<faq> createFaq(@RequestBody faq faq, UriComponentsBuilder builder) {
-//        faqService.saveOrUpdate(faq);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(builder.path("/faqs/{id}")
-//                .buildAndExpand(faq.getFaq_id()).toUri());
-//        return new ResponseEntity<>(faq, HttpStatus.CREATED);
-//    }
-//
-//    @RequestMapping(value = "/faqs/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity<faq> updateFaq(@PathVariable("id") Long id, @RequestBody faq faq) {
-//        Optional<faq> currentFaq = faqService.getFaqById(id);
-//        if (!currentFaq.isPresent()) {
-//            return new ResponseEntity<>(currentFaq.get(), HttpStatus.NO_CONTENT);
-//        }
-//
-//        currentFaq.get().setQuestion(faq.getQuestion());
-//        currentFaq.get().setAnswer(faq.getAnswer());
-//        currentFaq.get().setStatus(faq.getStatus());
-//        faqService.saveOrUpdate(currentFaq.get());
-//        return new ResponseEntity<>(currentFaq.get(), HttpStatus.OK);
-//    }
-//    @RequestMapping(value = "/faqs/{id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<String> deleteFaq(@PathVariable("id") Long id) {
-//        Optional<faq> faq = faqService.getFaqById(id);
-//        if (!faq.isPresent()) {
-//            return new ResponseEntity<>("Empty", HttpStatus.NO_CONTENT);
-//        }
-//        faqService.deleteFaq(id);
-//        return new ResponseEntity<>("Delete Successfully", HttpStatus.OK);
-//    }
 }

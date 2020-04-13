@@ -1,28 +1,30 @@
 package com.example.demo.services;
 
-import com.example.demo.models.role;
+import com.example.demo.dto.RecipeDTO;
+import com.example.demo.models.Role;
+import com.example.demo.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import com.example.demo.repositories.roleRepository;
+
 @Service
-public class roleServiceImpl implements roleService{
+public class RoleServiceImpl implements RoleService {
     @Autowired
-    roleRepository roleRepository;
+    RoleRepository roleRepository;
     @Override
-    public List<role> findAll() {
-        return (List<role>) roleRepository.findAll();
+    public List<Role> findAll() {
+        return (List<Role>) roleRepository.findAll();
     }
 
     @Override
-    public Optional<role> getRoleById(Long id) {
+    public Optional<Role> getRoleById(Long id) {
         return roleRepository.findById(id);
     }
 
     @Override
-    public void saveOrUpdate(role role) {
+    public void saveOrUpdate(Role role) {
         roleRepository.save(role);
     }
 
@@ -30,4 +32,5 @@ public class roleServiceImpl implements roleService{
     public void deleteRole(Long id) {
         roleRepository.deleteById(id);
     }
+
 }

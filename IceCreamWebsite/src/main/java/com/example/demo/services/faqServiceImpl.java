@@ -1,27 +1,29 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Faq;
+import com.example.demo.repositories.FaqRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.models.faq;
+
 import java.util.List;
 import java.util.Optional;
-import com.example.demo.repositories.faqRepository;
+
 @Service
-public class faqServiceImpl implements faqService{
+public class FaqServiceImpl implements FaqService {
     @Autowired
-    faqRepository faqRepository;
+    FaqRepository faqRepository;
     @Override
-    public List<faq> findAll() {
-        return (List<faq>) faqRepository.findAll();
+    public List<Faq> findAll() {
+        return (List<Faq>) faqRepository.findAll();
     }
 
     @Override
-    public Optional<faq> getFaqById(Long faq_id) {
+    public Optional<Faq> getFaqById(Long faq_id) {
         return faqRepository.findById(faq_id);
     }
 
     @Override
-    public void saveOrUpdate(faq faq) {
+    public void saveOrUpdate(Faq faq) {
         faqRepository.save(faq);
     }
     @Override

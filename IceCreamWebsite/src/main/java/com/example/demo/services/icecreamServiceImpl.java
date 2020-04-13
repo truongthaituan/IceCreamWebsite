@@ -1,29 +1,30 @@
 package com.example.demo.services;
 
-import com.example.demo.models.icecream;
+import com.example.demo.models.IceCream;
+import com.example.demo.repositories.IceCreamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.repositories.icecreamRepository;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class icecreamServiceImpl implements icecreamService{
+public class IceCreamServiceImpl implements IceCreamService {
 
     @Autowired
-    icecreamRepository icecreamRepository;
+    IceCreamRepository icecreamRepository;
     @Override
-    public List<icecream> findAll() {
-        return (List<icecream>) icecreamRepository.findAll();
+    public List<IceCream> findAll() {
+        return (List<IceCream>) icecreamRepository.findAll();
     }
 
     @Override
-    public Optional<icecream> getIceCreamById(Long icecream_id) {
+    public Optional<IceCream> getIceCreamById(Long icecream_id) {
         return icecreamRepository.findById(icecream_id);
     }
 
     @Override
-    public void saveOrUpdate(icecream icecream) {
+    public void saveOrUpdate(IceCream icecream) {
         icecreamRepository.save(icecream);
     }
 

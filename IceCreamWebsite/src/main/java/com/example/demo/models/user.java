@@ -1,22 +1,25 @@
 package com.example.demo.models;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class user {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long user_id;
+    @Column(name = "id")
+    private Long userId;
     @Column(name = "user_name")
     private String userName;
     @Column(name = "status")
@@ -25,28 +28,47 @@ public class user {
     @Column(name = "password")
     private String password;
     @Column(name = "phone_number")
-    private String phone_number;
+    private String phoneNumber;
     @Column(name = "avatar")
     private String avatar;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", /* Tạo ra một cái Join Table tên là "userrole" */
-            joinColumns = @JoinColumn(name = "user_id"), /* Trong đó, foreign key chính là user_id trỏ tới class hiện tại (User) */
-            inverseJoinColumns = @JoinColumn(name = "role_id" /* Khóa ngoại thứ 2 trỏ tới khóa chính của bảng Role */)
+    public User() {
+    }
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "user_role", /*Create table has name "userrole" */
+            joinColumns = @JoinColumn(name = "user_id"), /* Foreign Key is user_id (User) */
+            inverseJoinColumns = @JoinColumn(name = "role_id" /* the second foreign key point to primary key of Role */)
     )
-    private Set<role> roles = new HashSet<>();
+    private List<Role> roles;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<recipe> recipes = new HashSet<>();
-    public user(String userName, Boolean status, String password, String phone_number, String avatar) {
+    private Set<Recipe> recipes = new HashSet<>();
+    public User(String userName, Boolean status, String password, String phoneNumber, String avatar) {
         this.userName = userName;
         this.status = status;
         this.password = password;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.avatar = avatar;
-
     }
 
-    public user() {
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+    @JsonIgnore
+        public Set<GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+//        System.out.println("Role" + roles);
+        for(Role role : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole_name()));
+
+        }
+        return grantedAuthorities;
     }
 
     public String getUserName() {
@@ -56,12 +78,13 @@ public class user {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    public Long getUser_id() {
-        return user_id;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Boolean getStatus() {
@@ -80,12 +103,12 @@ public class user {
         this.password = password;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAvatar() {

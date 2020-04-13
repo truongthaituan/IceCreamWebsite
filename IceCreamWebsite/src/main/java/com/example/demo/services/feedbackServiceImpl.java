@@ -1,28 +1,36 @@
 package com.example.demo.services;
 
-import com.example.demo.models.feedback;
+import com.example.demo.common.MapperUtil;
+import com.example.demo.dto.FeedbackDTO;
+import com.example.demo.models.Feedback;
+import com.example.demo.repositories.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.repositories.feedbackRepository;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class feedbackServiceImpl implements feedbackService{
+public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
-    feedbackRepository feedbackRepository;
+    FeedbackRepository feedbackRepository;
     @Override
-    public List<feedback> findAll() {
-        return (List<feedback>) feedbackRepository.findAll();
+    public List<FeedbackDTO> findAll() {
+        return MapperUtil.mapList(feedbackRepository.findAll(),FeedbackDTO.class);
     }
 
     @Override
-    public Optional<feedback> getFeedbackById(Long feedback_id) {
-        return feedbackRepository.findById(feedback_id);
+    public FeedbackDTO getFeedbackById(Long feedback_id) {
+        return MapperUtil.mapObject(feedbackRepository.findById(feedback_id).get(),FeedbackDTO.class);
     }
 
     @Override
-    public void saveOrUpdate(feedback feedback) {
+    public Feedback findFeedbackById(Long feedback_id) {
+        return feedbackRepository.findById(feedback_id).get();
+    }
+
+    @Override
+    public void saveOrUpdate(Feedback feedback) {
         feedbackRepository.save(feedback);
     }
 

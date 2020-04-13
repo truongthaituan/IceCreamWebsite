@@ -1,4 +1,4 @@
 package com.example.demo.repositories;
 
-public interface user_roleRepository {
+public interface User_RoleRepository {
 }

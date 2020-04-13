@@ -5,53 +5,54 @@ import java.util.Date;
 
 @Entity
 @Table(name = "feedback")
-public class feedback {
+public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long feedback_id;
+    private Long feedbackId;
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    customer customer;
+    Customer customer;
     @ManyToOne
     @JoinColumn(name = "order_id")
-    order order;
+    Order order;
     @Column(name = "details")
     private String details;
     @Column(name = "create_date")
-    private Date create_date;
+    private Date createDate;
 
-    public feedback(customer customer, order order, String details, Date create_date) {
+    public Feedback(Customer customer, Order order, String details, Date createDate) {
         this.customer = customer;
         this.order = order;
         this.details = details;
-        this.create_date = create_date;
+        this.createDate = createDate;
     }
 
-    public feedback() {
+    public Feedback() {
     }
 
-    public Long getFeedback_id() {
-        return feedback_id;
+
+    public Long getFeedbackId() {
+        return feedbackId;
     }
 
-    public void setFeedback_id(Long feedback_id) {
-        this.feedback_id = feedback_id;
+    public void setFeedbackId(Long feedbackId) {
+        this.feedbackId = feedbackId;
     }
 
-    public customer getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public order getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(order order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
@@ -63,11 +64,11 @@ public class feedback {
         this.details = details;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }

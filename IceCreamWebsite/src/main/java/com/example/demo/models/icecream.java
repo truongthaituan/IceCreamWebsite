@@ -1,12 +1,16 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "icecream")
-public class icecream {
+public class IceCream {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -15,15 +19,29 @@ public class icecream {
     private String name;
     @Column(name = "description")
     private String description;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "icecream")
-    private Set<recipe> recipes = new HashSet<>();
+    @JsonIgnore
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
 
-    public icecream(String name, String description) {
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "icecream")
+    private List<Recipe> recipes = new ArrayList<>();
+
+    public IceCream(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public icecream() {
+    public IceCream(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+    public IceCream() {
     }
 
     public Long getId() {

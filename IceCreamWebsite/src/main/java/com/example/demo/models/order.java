@@ -1,51 +1,63 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-public class order {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    customer customer;
+    Customer customer;
     @ManyToOne
     @JoinColumn(name = "payment_id")
-    payment payment;
+    Payment payment;
     @Column(name = "payment_option")
-    private String payment_option;
+    private String paymentOption;
     @Column(name = "create_date")
-    private Date create_date;
+    private Date createDate;
     @Column(name = "delivery_detail")
-    private String delivery_detail;
+    private String deliveryDetail;
     @Column(name = "notes")
     private String notes;
     @Column(name = "status")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean status;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    Set<order_details> order_details;
+    private List<Order_details> order_details = new ArrayList<>();
 
-    public order(customer customer, String payment_option,
-                 payment payment, Date create_date, String delivery_detail, String notes, Boolean status) {
+    public Order(Customer customer, Payment payment, String paymentOption, Date createDate,
+                 String deliveryDetail, String notes, Boolean status) {
         this.customer = customer;
-        this.payment_option = payment_option;
         this.payment = payment;
-        this.create_date = create_date;
-        this.delivery_detail = delivery_detail;
+        this.paymentOption = paymentOption;
+        this.createDate = createDate;
+        this.deliveryDetail = deliveryDetail;
         this.notes = notes;
         this.status = status;
     }
 
-    public order() {
+    public Order() {
+    }
+
+    public List<Order_details> getOrder_details() {
+        return order_details;
+    }
+
+    public void setOrder_details(List<Order_details> order_details) {
+        this.order_details = order_details;
     }
 
     public Long getId() {
@@ -56,44 +68,44 @@ public class order {
         this.id = id;
     }
 
-    public customer getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public String getPayment_option() {
-        return payment_option;
-    }
-
-    public void setPayment_option(String payment_option) {
-        this.payment_option = payment_option;
-    }
-
-    public payment getPayment() {
+    public Payment getPayment() {
         return payment;
     }
 
-    public void setPayment(payment payment) {
+    public void setPayment(Payment payment) {
         this.payment = payment;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public String getPaymentOption() {
+        return paymentOption;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setPaymentOption(String paymentOption) {
+        this.paymentOption = paymentOption;
     }
 
-    public String getDelivery_detail() {
-        return delivery_detail;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setDelivery_detail(String delivery_detail) {
-        this.delivery_detail = delivery_detail;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getDeliveryDetail() {
+        return deliveryDetail;
+    }
+
+    public void setDeliveryDetail(String deliveryDetail) {
+        this.deliveryDetail = deliveryDetail;
     }
 
     public String getNotes() {

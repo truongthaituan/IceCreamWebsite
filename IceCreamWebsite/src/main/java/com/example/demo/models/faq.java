@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "faq")
-public class faq {
+public class Faq {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -19,13 +19,13 @@ public class faq {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean status;
 
-    public faq(String question, String answer, Boolean status) {
+    public Faq(String question, String answer, Boolean status) {
         this.question = question;
         this.answer = answer;
         this.status = status;
     }
 
-    public faq() {
+    public Faq() {
     }
 
     public Long getFaq_id() {

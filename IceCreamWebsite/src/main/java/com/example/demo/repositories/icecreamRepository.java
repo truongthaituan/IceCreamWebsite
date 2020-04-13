@@ -1,8 +1,9 @@
 package com.example.demo.repositories;
 
+import com.example.demo.models.IceCream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.demo.models.icecream;
+
 @Repository
-public interface icecreamRepository extends JpaRepository<icecream, Long> {
+public interface IceCreamRepository extends JpaRepository<IceCream, Long> {
 }

@@ -1,6 +1,10 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.customer;
+import com.example.demo.common.MapperUtil;
+import com.example.demo.dto.CustomerChangePassDTO;
+import com.example.demo.dto.CustomerDTO;
+import com.example.demo.models.Customer;
+import com.example.demo.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,67 +13,90 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.example.demo.services.customerService;
+import com.example.demo.dto.StatusCRUD;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
-public class customerController {
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/customers")
+@RestController
+public class CustomerController {
     @Autowired
-    customerService customerService;
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "customers", method = RequestMethod.GET)
-    public ResponseEntity<List<customer>> findCustomer() {
-        List<customer> customers = customerService.findAll();
+    CustomerService customerService;
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<CustomerDTO>> findCustomer() {
+        List<CustomerDTO> customers = customerService.findAll();
         if (customers.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
-    @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<customer> getCustomerById(@PathVariable("id") Long id) {
-        Optional<customer> customer = customerService.getCustomerById(id);
-        if (!((Optional) customer).isPresent()) {
-            return new ResponseEntity<>(customer.get(), HttpStatus.NO_CONTENT);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable("id") Long id) {
+        CustomerDTO customer = customerService.getCustomerById(id);
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(customer.get(), HttpStatus.OK);
-    }
-    @RequestMapping(value = "/customers",
-            method = RequestMethod.POST)
-    public ResponseEntity<customer> createCustomer(@RequestBody customer customer, UriComponentsBuilder builder) {
-        customerService.saveOrUpdate(customer);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/customers/{id}")
-                .buildAndExpand(customer.getCustomer_id()).toUri());
-        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<customer> updateCustomer(@PathVariable("id") Long id, @RequestBody customer customer) {
-        Optional<customer> currentCustomer = customerService.getCustomerById(id);
-        if (!currentCustomer.isPresent()) {
-            return new ResponseEntity<>(currentCustomer.get(), HttpStatus.NO_CONTENT);
+    @RequestMapping(value = "/username/{userName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomerDTO> getCustomerByUserNme(@PathVariable("userName") String userName) {
+        Customer customer = customerService.findUserByName(userName);
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        currentCustomer.get().setName(customer.getName());
-        currentCustomer.get().setEmail(customer.getEmail());
-        currentCustomer.get().setPhone(customer.getPhone());
-        currentCustomer.get().setPassword(customer.getPassword());
-        currentCustomer.get().setDate_of_birth(customer.getDate_of_birth());
-        currentCustomer.get().setAddress(customer.getAddress());
-        currentCustomer.get().setGender(customer.getGender());
-        currentCustomer.get().setAvatar(customer.getAvatar());
-        currentCustomer.get().setStatus(customer.getStatus());
-        currentCustomer.get().setNumber_of_login_failed(customer.getNumber_of_login_failed());
-        customerService.saveOrUpdate(currentCustomer.get());
-        return new ResponseEntity<>(currentCustomer.get(), HttpStatus.OK);
+        return new ResponseEntity<>(MapperUtil.mapObject(customer, CustomerDTO.class), HttpStatus.OK);
     }
-    @RequestMapping(value = "/customers/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteFaq(@PathVariable("id") Long id) {
-        Optional<customer> customer = customerService.getCustomerById(id);
-        if (!customer.isPresent()) {
-            return new ResponseEntity<>("Empty", HttpStatus.NO_CONTENT);
+
+    @RequestMapping(value = "",
+            method = RequestMethod.POST)
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
+        customerService.registerCustomer(customer);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/customers/{id}")
+                .buildAndExpand(customer.getCustomerId()).toUri());
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer) {
+       Customer currentCustomer = customerService.findCustomerById(id);
+        if (currentCustomer == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        currentCustomer.setUserName(customer.getUserName());
+        currentCustomer.setEmail(customer.getEmail());
+        currentCustomer.setPhone(customer.getPhone());
+        currentCustomer.setPassword(customer.getPassword());
+        currentCustomer.setDateOfBirth(customer.getDateOfBirth());
+        currentCustomer.setAddress(customer.getAddress());
+        currentCustomer.setGender(customer.getGender());
+        currentCustomer.setAvatar(customer.getAvatar());
+        currentCustomer.setStatus(customer.getStatus());
+        currentCustomer.setNumberOfLoginFailed(customer.getNumberOfLoginFailed());
+        customerService.updateCustomer(currentCustomer);
+        return new ResponseEntity<>(MapperUtil.mapObject(currentCustomer,CustomerDTO.class), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<StatusCRUD> deleteFaq(@PathVariable("id") Long id) {
+        Customer customer = customerService.findCustomerById(id);
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        StatusCRUD statusCRUD = new StatusCRUD("Delete Customer Successfully");
         customerService.deleteCustomer(id);
-        return new ResponseEntity<>("Delete Successfully", HttpStatus.OK);
+        return new ResponseEntity<>(statusCRUD, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/changePasswordCustomer", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StatusCRUD> changePassword(@RequestBody CustomerChangePassDTO customerChangePassDTO) {
+        StatusCRUD statusCRUD;
+        Boolean statusChange = customerService.changePassword(customerChangePassDTO);
+        if(statusChange){
+           statusCRUD = new StatusCRUD("Change Password Successfully!");
+        } else {
+            statusCRUD = new StatusCRUD("Invalid Password!");
+        }
+        return new ResponseEntity<>(statusCRUD, HttpStatus.OK);
     }
 }

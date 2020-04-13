@@ -9,13 +9,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "customer")
-public class customer {
+public class Customer {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customer_id;
-    @Column(name = "name")
-    private String name;
+    private Long customerId;
+    @Column(name = "user_name")
+    private String userName;
     @Column(name = "email")
     private String email;
     @Column(name = "phone")
@@ -23,7 +23,7 @@ public class customer {
     @Column(name = "password")
     private String password;
     @Column(name = "date_of_birth")
-    private Date date_of_birth;
+    private Date dateOfBirth;
     @Column(name = "address")
     private String address;
     @Column(name = "gender")
@@ -35,41 +35,42 @@ public class customer {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean status;
     @Column(name = "number_of_login_failed")
-    private Integer number_of_login_failed;
+    private Integer numberOfLoginFailed;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private Set<order> orders = new HashSet<>();
-    public customer(String name, String email, String phone, String password, Date date_of_birth, String address,
-                    Boolean gender, String avatar, Boolean status, Integer number_of_login_failed) {
-        this.name = name;
+    private Set<Order> orders = new HashSet<>();
+
+    public Customer(String userName, String email, String phone, String password, Date dateOfBirth,
+                    String address, Boolean gender, String avatar, Boolean status, Integer numberOfLoginFailed) {
+        this.userName = userName;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.date_of_birth = date_of_birth;
+        this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.gender = gender;
         this.avatar = avatar;
         this.status = status;
-        this.number_of_login_failed = number_of_login_failed;
+        this.numberOfLoginFailed = numberOfLoginFailed;
     }
 
-    public customer() {
+    public Customer() {
     }
 
-    public Long getCustomer_id() {
-        return customer_id;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(Long customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -96,12 +97,12 @@ public class customer {
         this.password = password;
     }
 
-    public Date getDate_of_birth() {
-        return date_of_birth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
-        this.date_of_birth = date_of_birth;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getAddress() {
@@ -136,11 +137,11 @@ public class customer {
         this.status = status;
     }
 
-    public Integer getNumber_of_login_failed() {
-        return number_of_login_failed;
+    public Integer getNumberOfLoginFailed() {
+        return numberOfLoginFailed;
     }
 
-    public void setNumber_of_login_failed(Integer number_of_login_failed) {
-        this.number_of_login_failed = number_of_login_failed;
+    public void setNumberOfLoginFailed(Integer numberOfLoginFailed) {
+        this.numberOfLoginFailed = numberOfLoginFailed;
     }
 }

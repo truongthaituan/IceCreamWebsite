@@ -1,11 +1,13 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Role;
+
 import java.util.List;
 import java.util.Optional;
-import com.example.demo.models.role;
-public interface roleService {
-    List<role> findAll();
-    Optional<role> getRoleById(Long id);
-    void saveOrUpdate(role role);
+
+public interface RoleService {
+    List<Role> findAll();
+    Optional<Role> getRoleById(Long id);
+    void saveOrUpdate(Role role);
     void deleteRole(Long id);
 }

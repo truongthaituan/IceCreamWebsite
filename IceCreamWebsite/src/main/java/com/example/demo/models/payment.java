@@ -7,61 +7,63 @@ import java.util.Set;
 
 @Entity
 @Table(name = "payment")
-public class payment {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long payment_id;
+    private Long paymentId;
     @Column(name = "card_type")
-    private String card_type;
+    private String cardType;
     @Column(name = "card_number")
-    private Long card_number;
+    private Long cardNumber;
     @Column(name = "cvv")
     private String cvv;
     @Column(name = "name_on_card")
-    private String name_on_card;
+    private String nameOnCard;
     @Column(name = "expired_date")
-    private Date expired_date;
+    private Date expiredDate;
     @Column(name = "date_of_birth")
-    private Date date_of_birth;
+    private Date dateOfBirth;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "payment")
-    private Set<order> orders = new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
-    public payment(String card_type, Long card_number, String cvv, String name_on_card, Date expired_date, Date date_of_birth) {
-        this.card_type = card_type;
-        this.card_number = card_number;
+    public Payment(String cardType, Long cardNumber, String cvv, String nameOnCard,
+                   Date expiredDate, Date dateOfBirth, Set<Order> orders) {
+        this.cardType = cardType;
+        this.cardNumber = cardNumber;
         this.cvv = cvv;
-        this.name_on_card = name_on_card;
-        this.expired_date = expired_date;
-        this.date_of_birth = date_of_birth;
+        this.nameOnCard = nameOnCard;
+        this.expiredDate = expiredDate;
+        this.dateOfBirth = dateOfBirth;
+        this.orders = orders;
     }
 
-    public payment() {
+    public Payment() {
     }
 
-    public Long getPayment_id() {
-        return payment_id;
+    public Long getPaymentId() {
+        return paymentId;
     }
 
-    public void setPayment_id(Long payment_id) {
-        this.payment_id = payment_id;
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
     }
 
-    public String getCard_type() {
-        return card_type;
+    public String getCardType() {
+        return cardType;
     }
 
-    public void setCard_type(String card_type) {
-        this.card_type = card_type;
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 
-    public Long getCard_number() {
-        return card_number;
+    public Long getCardNumber() {
+        return cardNumber;
     }
 
-    public void setCard_number(Long card_number) {
-        this.card_number = card_number;
+    public void setCardNumber(Long cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public String getCvv() {
@@ -72,27 +74,27 @@ public class payment {
         this.cvv = cvv;
     }
 
-    public String getName_on_card() {
-        return name_on_card;
+    public String getNameOnCard() {
+        return nameOnCard;
     }
 
-    public void setName_on_card(String name_on_card) {
-        this.name_on_card = name_on_card;
+    public void setNameOnCard(String nameOnCard) {
+        this.nameOnCard = nameOnCard;
     }
 
-    public Date getExpired_date() {
-        return expired_date;
+    public Date getExpiredDate() {
+        return expiredDate;
     }
 
-    public void setExpired_date(Date expired_date) {
-        this.expired_date = expired_date;
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
     }
 
-    public Date getDate_of_birth() {
-        return date_of_birth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
-        this.date_of_birth = date_of_birth;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
