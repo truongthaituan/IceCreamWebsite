@@ -72,4 +72,7 @@ user_roles: Array<Role>;
  moveToUserChangePassword(){
    return this._router.navigate(['/userChangePassword']);
  }
+ moveToUserProfileEdit(userName){
+  return this._router.navigate(["/userProfileEdit" + `/${userName}`]);
+}
 }

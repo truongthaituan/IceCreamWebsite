@@ -31,15 +31,15 @@ public class Order {
     @Column(name = "notes")
     private String notes;
     @Column(name = "status")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean status;
+    private String status;
+
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<Order_details> order_details = new ArrayList<>();
 
     public Order(Customer customer, Payment payment, String paymentOption, Date createDate,
-                 String deliveryDetail, String notes, Boolean status) {
+                 String deliveryDetail, String notes, String status) {
         this.customer = customer;
         this.payment = payment;
         this.paymentOption = paymentOption;
@@ -50,6 +50,13 @@ public class Order {
     }
 
     public Order() {
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Order_details> getOrder_details() {
@@ -116,11 +123,5 @@ public class Order {
         this.notes = notes;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
 }

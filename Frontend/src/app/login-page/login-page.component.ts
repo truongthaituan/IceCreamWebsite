@@ -33,6 +33,7 @@ export class LoginPageComponent implements OnInit {
         });
 }
 roleNames: string
+role_name: string = ""
   login() {
     if (!this.loginForm.valid) {
       alert("Mời nhập đầy đủ thông tin");
@@ -49,7 +50,7 @@ roleNames: string
         const response: AuthInfo = res as AuthInfo;
         this.roleNames = String(response.roles);
         if (response.loggedIn == false) {
-          this.errString = "Email hoặc password không đúng!";
+          this.errString = "Username hoặc password không đúng!";
           this.showErrorMessage = true;
           setTimeout(() => { this.errString = ""; this.showErrorMessage = false }, 4000);
         }
@@ -63,6 +64,8 @@ roleNames: string
             localStorage.setItem('statusLogin', String(this.statusLogin));
             // sessionStorage.setItem('loginBy', "loginbt");
             console.log("admin")
+            this.role_name = "ROLE_ADMIN";
+            localStorage.setItem("roleName", this.role_name);
           }
           //member
           else if( this.roleNames.trim().split(",")[i] == "ROLE_USER") {
@@ -72,6 +75,8 @@ roleNames: string
             localStorage.setItem('statusLogin', String(this.statusLogin));
             // sessionStorage.setItem('loginBy', "loginbt");
             console.log("user")
+            this.role_name = "ROLE_USER";
+            localStorage.setItem("roleName", this.role_name);
              }
              else if( this.roleNames.trim().split(",")[i] == "ROLE_CUSTOMER") {
               window.location.href = "/"
@@ -80,6 +85,8 @@ roleNames: string
               localStorage.setItem('statusLogin', String(this.statusLogin));
               // sessionStorage.setItem('loginBy', "loginbt");
               console.log("customer")
+              this.role_name = "ROLE_CUSTOMER";
+              localStorage.setItem("roleName", this.role_name);
                }
           }
         }

@@ -28,37 +28,17 @@ user_roles: Array<Role>;
   });
    let id = this.route.snapshot.paramMap.get('id');
    console.log(id);
-   this.resetForm();
+   
    this.getUserById(Number(id));
-    this.getAllRole();
+ 
  }
- resetForm(form?: NgForm) {
-   if (form)
-     form.reset();
-   this.userService.user = {
-     userId: null,
-     userName: "",
-     password: "",
-     phoneNumber: "",
-     avatar: "",
-     status: null,
-     roles: Role,
-   }
- }
+
  getUserById(id: number){
    this.userService.getUserById(id).subscribe((res) => {
    this.userService.user = res as User;
-   console.log(this.userService.user);
-   this.user_roles =this.userService.user.roles;
-   console.log(this.user_roles);
-   console.log(JSON.stringify(res));
    })
  }
-getAllRole(){
-  this.roleService.getRoleList().subscribe((res) => {
-    this.roleService.roles = res as Role[];
-  })
-}
+
  previousUrl: string;
 
  cancel(){
@@ -70,22 +50,8 @@ getAllRole(){
  moveToAdminUser(){
    this._router.navigate(['/manageUser']);
  }
- onSubmit(form: NgForm) {
-   let id = this.route.snapshot.paramMap.get('id');
-   if (confirm('Do you want to update this user ?') == true) {
-     form.value.avatar =  $('input[type=file]').val().replace(/C:\\fakepath\\/i, 'images/');
-     console.log(form.value.avatar);
-     form.value.userId = parseInt(id);
-    //  console.log("role ->" + form.value.roles)  
-    form.value.roles = [{"id":form.value.roles}];
-   this.userService.updateUser(form.value).subscribe(
-    data => {
-      console.log(data);
-      this.location.back();
-   },
-    error => console.log(error)
-   );
-  console.log('Your form data: '+  form.value)
-   }
+
+ moveToAdminUserEdit(userId){
+  return this._router.navigate(["/manageUserEdit" + `/${userId}`]);
  }
 }

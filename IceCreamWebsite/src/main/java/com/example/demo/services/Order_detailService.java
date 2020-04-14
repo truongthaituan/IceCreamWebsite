@@ -11,5 +11,6 @@ public interface Order_detailService {
     void saveOrUpdate(Order_details order_details);
     void deleteOrder_Detail(Long order_details_id);
     List<Order_details> findOrderDetailsByOrder(Long orderId);
+    List<Order_details> findOrderDetailsByRecipe(Long recipeId);
 //    List<Order_details> deleteOrderDetailsByOrder(Long orderId);
 }

@@ -64,19 +64,19 @@ export class AdminAddCustomerComponent implements OnInit {
       }
       else {
         this.createCustomerForm.value.avatar = $('input[type=file]').val().replace(/C:\\fakepath\\/i, 'images/');  
-        console.log(this.createCustomerForm.value.avatar);
-        console.log(JSON.stringify(this.createCustomerForm.value)); 
+        // console.log(this.createCustomerForm.value.avatar);
+        // console.log(JSON.stringify(this.createCustomerForm.value)); 
         this.createCustomerForm.value.numberOfLoginFailed = 0; 
         this.customerService.createCustomer(JSON.stringify(this.createCustomerForm.value))
           .subscribe(
             data => {
-              console.log(data);
+              // console.log(data);
               this.statusRegister = true;
               this._router.navigate(['/manageCustomer']);
-              console.log("Add Customer Successfully!");
+              // console.log("Add Customer Successfully!");
             },
             error => {
-              console.log(error);
+              // console.log(error);
               this.errRegister = "Tài khoản có thể đã tồn tại!";
             })
       }

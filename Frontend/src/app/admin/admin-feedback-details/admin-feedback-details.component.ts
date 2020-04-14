@@ -54,5 +54,8 @@ previousUrl: string;
 cancel(){
   this.location.back();
 }
-
+moveToFeedbackEdit(feedbackId)
+{
+  return this._router.navigate(["/manageFeedbackEdit" + `/${feedbackId}`]);
+}
 }

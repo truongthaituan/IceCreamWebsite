@@ -4,5 +4,4 @@ export class OrderDetails {
     recipe: any;
     quantity: number;
     price: number;
-    notes: string;
 }

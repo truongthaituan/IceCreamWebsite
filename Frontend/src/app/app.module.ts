@@ -72,6 +72,12 @@ import { CustomerChangePasswordComponent } from './customer/customer-change-pass
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { AddRecipeComponent } from './user/add-recipe/add-recipe.component';
 import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
+import { AdminUserEditComponent } from './admin/admin-user-edit/admin-user-edit.component';
+import { AdminCustomerEditComponent } from './admin/admin-customer-edit/admin-customer-edit.component';
+import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-edit.component';
+import { AdminRecipeEditComponent } from './admin/admin-recipe-edit/admin-recipe-edit.component';
+import { ManageOrderDetailsComponent } from './user/manage-order-details/manage-order-details.component';
+import { OrderDetailsEditComponent } from './user/order-details-edit/order-details-edit.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +110,13 @@ import { UserChangePasswordComponent } from './user/user-change-password/user-ch
     CustomerChangePasswordComponent,
     UserProfileComponent,
     AddRecipeComponent,
-    UserChangePasswordComponent
+    UserChangePasswordComponent,
+    AdminUserEditComponent,
+    AdminCustomerEditComponent,
+    UserProfileEditComponent,
+    AdminRecipeEditComponent,
+    ManageOrderDetailsComponent,
+    OrderDetailsEditComponent
   ],
   imports: [
     BrowserModule,

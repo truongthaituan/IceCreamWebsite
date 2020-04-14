@@ -8,6 +8,11 @@ import { UserService } from 'src/app/user-service/user.service';
 import { User } from 'src/app/user-service/user.model';
 import { IcecreamService } from 'src/app/services/icecream-service/icecream.service';
 import { Icecream } from 'src/app/services/icecream-service/icecream.model';
+import { OrderService } from 'src/app/services/order-service/order.service';
+import { OrderDetailsService } from 'src/app/services/orderdetails-service/order-details.service';
+import { OrderDetails } from 'src/app/services/orderdetails-service/order-details.model';
+import { FeedbackService } from 'src/app/services/feedback-service/feedback.service';
+import { Feedback } from 'src/app/services/feedback-service/feedback.model';
 declare var $:any;
 @Component({
   selector: 'app-admin-recipe-detail',
@@ -17,7 +22,8 @@ declare var $:any;
 export class AdminRecipeDetailComponent implements OnInit {
 
   constructor(private _router: Router,private route: ActivatedRoute,private userService: UserService,private iceCreamService: IcecreamService,
-    private recipeService: RecipeService, private location: Location) {
+    private recipeService: RecipeService, private location: Location, private feedbackService: FeedbackService,
+    private orderDetailsService: OrderDetailsService) {
   
  }
 
@@ -26,9 +32,9 @@ ngOnInit() {
  console.log(id);
  this.resetForm();
  this.getRecipeById(Number(id));
-
  this.getAllUser();
  this.getAllIceCream();
+ this.getRecipeFeedback(id)
   }
 resetForm(form?: NgForm) {
   if (form)
@@ -82,24 +88,30 @@ cancel(){
   this.location.back();
 }
 
-onSubmit(form: NgForm) {
-  let id = this.route.snapshot.paramMap.get('id');
-  if (confirm('Do you want to update information this recipe ?') == true) {
-   form.value.image =  $('input[type=file]').val().replace(/C:\\fakepath\\/i, 'images/');
-   console.log(form.value.image);
-   form.value.id = parseInt(id);
-   form.value.user = { "userId":  form.value.userId };
-   form.value.icecream = { "id":  form.value.icecreamId };
-  this.recipeService.updateRecipe(form.value).subscribe(
-   data => {
-     console.log(data);
-     this.location.back();
-    // this.showMsg = true;
-    // sessionStorage.setItem('showMsg',String(this.showMsg))
-  },
-   error => console.log(error)
-  );
-   console.log('Your form data: '+  form.value)
-    }
+  moveToRecipeEdit(recipeId){
+    return this._router.navigate(["/manageRecipeEdit" + `/${recipeId}`]);
+  }
+  feedbackList : Feedback[] = []
+  getRecipeFeedback(recipeId){
+    this.orderDetailsService.getOrderDetailsByRecipe(recipeId).subscribe(res => {
+      this.orderDetailsService.orderDetails = res as OrderDetails[];
+      console.log(res)
+      for(let i = 0; i < this.orderDetailsService.orderDetails.length;i++){
+
+        this.feedbackService.getFeedbackList().subscribe(res => {
+          this.feedbackService.feedbacks = res as Feedback[];
+          for(let j = 0; j <  this.feedbackService.feedbacks.length;j++ ){
+            if(this.orderDetailsService.orderDetails[i].order.id == this.feedbackService.feedbacks[j].order.id) {
+              console.log(this.feedbackService.feedbacks[j].order.id)
+              this.feedbackList.push(this.feedbackService.feedbacks[j])
+              // console.log(this.feedbackList)
+            }
+          }
+              
+
+        })
+
+      }
+    })
   }
 }

@@ -98,8 +98,7 @@ export class CustomerPaymentComponent implements OnInit {
       order: null,
       recipe: null,
       quantity: null,
-      price: null,
-      notes: ''
+      price: null
     });
   }
     // set độ dài của giỏ hàng

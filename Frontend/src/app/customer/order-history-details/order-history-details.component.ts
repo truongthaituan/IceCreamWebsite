@@ -23,7 +23,7 @@ export class OrderHistoryDetailsComponent implements OnInit {
   isLoggedIn :Boolean = false
   roles: string[] = []
   statusCRUD: String = ""
-  displayedColumns: string[] = ['orderDetailsId','order','recipe', 'quantity','price','notes'];
+  displayedColumns: string[] = ['orderDetailsId','order','recipe', 'quantity','price'];
   dataSource: MatTableDataSource<OrderDetails>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

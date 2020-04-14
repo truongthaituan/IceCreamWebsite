@@ -60,6 +60,7 @@ onSubmit(form: NgForm) {
    form.value.customerId = this.customerService.customer.customerId;
    console.log(form.value.customerId);
    form.value.password = this.customerService.customer.password;
+    form.value.status = this.customerService.customer.status;
   this.customerService.updateCustomer(form.value).subscribe(
    data => {console.log(data);
      this._router.navigate(['/']);

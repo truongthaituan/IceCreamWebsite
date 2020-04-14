@@ -18,6 +18,9 @@ export class OrderDetailsService {
   getOrderDetailsByOrder(orderId: number){
     return this.apiService.get("/order_details/orders"  + `/${orderId}`);
   }
+  getOrderDetailsByRecipe(recipeId: number){
+    return this.apiService.get("/order_details/recipes"  + `/${recipeId}`);
+  }
   getOrderDetailsById(orderDetailsId: number){
     return this.apiService.get("/order_details"  + `/${orderDetailsId}`);
   }

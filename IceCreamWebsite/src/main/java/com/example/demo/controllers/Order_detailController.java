@@ -45,7 +45,14 @@ public class Order_detailController {
         }
         return new ResponseEntity<>(order_details, HttpStatus.OK);
     }
-
+    @RequestMapping(value = "/order_details/recipes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Order_details>> getOrder_DetailByRecipe(@PathVariable("id") Long recipeId) {
+        List<Order_details> order_details = order_detailService.findOrderDetailsByRecipe(recipeId);
+        if (order_details.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(order_details, HttpStatus.OK);
+    }
 
 //    @RequestMapping(value = "/order_details/orders/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<List<Order_details>> deleteOrder_DetailByOrder(@PathVariable("id") Long orderId) {
@@ -76,7 +83,6 @@ public class Order_detailController {
         currentOrder_detail.get().setRecipe(order_details.getRecipe());
         currentOrder_detail.get().setQuantity(order_details.getQuantity());
         currentOrder_detail.get().setPrice(order_details.getPrice());
-        currentOrder_detail.get().setNotes(order_details.getNotes());
         order_detailService.saveOrUpdate(currentOrder_detail.get());
         return new ResponseEntity<>(currentOrder_detail.get(), HttpStatus.OK);
     }

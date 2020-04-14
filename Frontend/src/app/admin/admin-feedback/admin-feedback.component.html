@@ -22,7 +22,7 @@
           <div class="col-sm-6" style="font-size: x-large;color: blue;">
           Feedback
         </div>
-        <div style="font-size: medium;color: red;" *ngIf = "statusCRUD != ''">
+        <div style="font-size: medium;color: green;" *ngIf = "statusCRUD != ''">
           {{statusCRUD}}
         </div>
         </div>
@@ -70,7 +70,7 @@
     <th mat-header-cell *matHeaderCellDef> Remove </th>
     <td mat-cell *matCellDef="let element"> 
       <button mat-raised-button color="primary"
-         (click)="deleteOrderById(element.id)"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')" style="background-color: red;">Remove</button> 
+         (click)="deleteById(element.feedbackId)"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')" style="background-color: red;">Remove</button> 
          <button mat-raised-button color="primary" 
          (click)="AccessDenied();" *ngIf="roles.includes('ROLE_CUSTOMER')" style="background-color: red;">Remove</button> 
         </td>

@@ -53,22 +53,8 @@ export class AdminCustomerProfileComponent implements OnInit {
    this.location.back();
  }
 
- onSubmit(form: NgForm) {
-   let id = this.route.snapshot.paramMap.get('id');
-   if (confirm('Do you want to update information customer ?') == true) {
-    form.value.avatar =  $('input[type=file]').val().replace(/C:\\fakepath\\/i, 'images/');
-    console.log(form.value.avatar);
-    form.value.customerId = parseInt(id);
-    form.value.password = this.customerService.customer.password;
-   this.customerService.updateCustomer(form.value).subscribe(
-    data => {console.log(data);
-      this.location.back();
-     // this.showMsg = true;
-     // sessionStorage.setItem('showMsg',String(this.showMsg))
-   },
-    error => console.log(error)
-   );
-    console.log('Your form data: '+  form.value)
-   }
+ moveToCustomerEdit(customer_id)
+ {
+   return this._router.navigate(["/manageCustomerEdit" + `/${customer_id}`]);
  }
 }

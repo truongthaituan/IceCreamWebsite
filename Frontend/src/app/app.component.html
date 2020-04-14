@@ -24,46 +24,46 @@
       <div class="collapse navbar-collapse" id="myNav">
         <ul class="navbar-nav mx-auto text-capitalize">
           <li class="nav-item" *ngIf=" roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) ="moveToUserProfile(userName);">Profile</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) ="moveToUserProfile(userName);">Profile </a>
           </li>&nbsp;
           <li class="nav-item" *ngIf="roles.includes('ROLE_CUSTOMER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) ="moveToProfile(userName);">Profile</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) ="moveToProfile(userName);">Profile </a>
           </li>&nbsp;
           <li class="nav-item"  *ngIf="roles.includes('ROLE_CUSTOMER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToIcecream();" >OrderIcecream</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToIcecream();" >OrderIcecream </a>
           </li>&nbsp;
           <li class="nav-item"  *ngIf="roles.includes('ROLE_CUSTOMER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToOrderHistory();" >Order</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToOrderHistory();" >Order </a>
           </li>&nbsp;
           <li class="nav-item"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminUser();">user</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminUser();">user </a>
           </li>&nbsp;
           <li class="nav-item" *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminCustomer();">customer</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminCustomer();">customer </a>
           </li>&nbsp;
           <li class="nav-item"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
             <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminRecipe();">recipe</a>
           </li>&nbsp;
           <li class="nav-item" *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminFeedback();">feedback</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminFeedback();">feedback </a>
           </li>&nbsp;
           <li class="nav-item"  *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_USER')">
-            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminOrder();">order</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToAdminOrder();">order </a>
           </li>&nbsp;
           <li class="nav-item" *ngIf="userName == null">
-            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToLogin();">register</a>
+            <a class="nav-link" id = "nav-link" type="button" (click) = "moveToRegister();">register </a>
           </li>&nbsp;
           <li class="nav-item"  *ngIf="userName == null">
             <a class="nav-link" id = "nav-link" type="button" (click) = "moveToLogin();">login</a>
-          </li>&nbsp;
+          </li>&nbsp;&nbsp;&nbsp;&nbsp;
+          <div class="row" style="float: right;">
           <li class="nav-item">
-            <a class="nav-link" id = "nav-link" type="button" 
-             *ngIf="userName != null && statusLogin == 'true'" style="color: darkgreen;">Welcome {{userName}}</a>
-          </li>&nbsp;
+            <a id = "infor" *ngIf="userName != null && statusLogin == 'true'" style="color: darkgreen;">Welcome {{userName}} </a>
+          </li>&nbsp;&nbsp;&nbsp;
           <li class="nav-item">
-            <a class="nav-link" id = "nav-link" type="button"  (click) = "logout();"
+            <a id = "infor" type="button"  (click) = "logout();" style="margin-bottom: initial;"
              *ngIf="userName != null && statusLogin == 'true'" style="color: darkgreen;">Logout</a>
-          </li>
+          </li></div>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">register</a>
           </li>
@@ -71,20 +71,12 @@
             <a class="nav-link" href="#">login</a>
           </li> -->
         </ul>
-        <div class="nav-info-items d-none d-lg-flex ">
-          <!-- single info -->
-          <!-- <div class="nav-info align-items-center d-flex justify-content-between mx-lg-5">
-            <span class="info-icon mx-lg-3"><i class="fas fa-phone"></i></span>
-            <p class="mb-0" style="font-size: 15px;">+ 077 374  9328</p>
-          </div> -->
-          <!-- end of single info -->
-          <!-- single info -->
+        <div class="nav-info-items d-none d-lg-flex"  *ngIf="roleName == null || roleName == 'ROLE_CUSTOMER'">
           <div id="cart-info" class="nav-info align-items-center cart-info d-flex justify-content-between mx-lg-5" 
-           (click) = "moveToCartRecipe();">
+           (click) = "moveToCartRecipe();" >
             <span class="cart-info__icon mr-lg-3"><i class="fas fa-shopping-cart" ></i></span>
             <p class="mb-0 text-capitalize"><span class="item-count">0 </span> items - $<span class="item-total">0</span></p>
           </div>
-          <!-- end of single info -->
         </div>
       </div>
     </nav>
@@ -94,7 +86,7 @@
       <div class="row max-height justify-content-center align-items-center" id = "banner_image" >
         <div class="col-10 mx-auto banner text-center">
           <h1 class="text-capitalize" style="color:#333333;">welcome to <strong class="banner-title ">CreamIce</strong></h1>
-          <a id = "buynow" type="button" (click) = "moveToOrderIcecream();" class="btn banner-link text-uppercase my-2"  >buy now</a>
+          <a id = "buynow" type="button" (click) = "moveToOrderIcecream();" class="btn banner-link text-uppercase my-2"    *ngIf="roleName == null || roleName == 'ROLE_CUSTOMER'">buy now</a>
 
         </div>
      <!-- <div id="cart" class="cart">

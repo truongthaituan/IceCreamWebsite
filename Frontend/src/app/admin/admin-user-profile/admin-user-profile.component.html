@@ -13,7 +13,6 @@
    color: blue;
   }
   </style>
-<form  #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="appointment-form" style="color: #555555;">
 <div id="content" style="margin-top: -5.6px;margin-left: 1px;">
     <div class="parent">
       
@@ -26,7 +25,7 @@
             </div>
             <div class="col-sm-6">
                 <input class="form-control" type="text" name="userName" #name="ngModel"
-                [(ngModel)]="userService.user.userName"  required style="font-size: 15px;width: 180px;">
+                [(ngModel)]="userService.user.userName" readonly  required style="font-size: 15px;width: 180px;">
           </div>
           </div>
           <br>
@@ -36,7 +35,7 @@
             </div>
             <div class="col-sm-6">
                 <input class="form-control" type="text" name="phoneNumber" #name="ngModel"
-                [(ngModel)]="userService.user.phoneNumber" style="font-size: 15px;width: 180px;" required>
+                [(ngModel)]="userService.user.phoneNumber" readonly style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
           <br>
@@ -45,12 +44,13 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Status</label>
             </div>
             <div class="col-sm-6">               
-                      <select name="status" [(ngModel)]="userService.user.status" style="color: #495057;
-                      font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" >
-                  <!-- <option ></option> -->
-                  <option value="true">true</option>
-                  <option value="false">false</option>
-                  </select>
+                      <!-- <select name="status" [(ngModel)]="userService.user.status" style="color: #495057;
+                      font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" disabled>
+                  <option value="true">Active</option>
+                  <option value="false">Block</option>
+                  </select> -->
+                  <input class="form-control" type="text" name="status" 
+                value="{{userService.user.status ? 'Active' : 'Block'}}" readonly style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
           <br>
@@ -58,19 +58,16 @@
             <div class="col-sm-6">
                 <label style="float: right;font-size: 15px;color: #fff;">Role</label>
             </div>
-            <div class="col-sm-6" *ngFor ="let role of userService.user.roles">
-                  <select name="roles" [(ngModel)]="role.id" style="color: #495057;
-                  font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" >
-              <option *ngFor ="let role of roleService.roles"
-              value="{{role.id}}">{{role.role_name}}</option>
-              </select>
+            <div class="col-sm-6" *ngFor ="let role of userService.user.roles">      
+              <input class="form-control" type="text" name="roles" #name="ngModel"
+              [(ngModel)]=" role.role_name" readonly style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
           <div style="margin-top:50px;">
             <div class="row">
                 <div class="col-sm-6">
                     <button class="contact-link" target="_blank" *ngIf="roles.includes('ROLE_ADMIN')"
-                      type="submit" style="color: black;"> Edit</button>
+                      type="submit" style="color: black;" (click) = "moveToAdminUserEdit(userService.user.userId);"> Edit</button>
                 </div>
                 <div class="col-sm-6">
                     <button class="contact-link" target="_blank" type="button" (click) = "cancel();" style="color: black;"> Cancel</button>
@@ -95,5 +92,4 @@
 
       </div>
   </div>
-  </form>
   <!-- partial -->

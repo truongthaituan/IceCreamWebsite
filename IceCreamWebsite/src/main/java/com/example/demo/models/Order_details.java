@@ -24,15 +24,13 @@ public class Order_details {
     private Integer quantity;
     @Column(name = "price")
     private Float price;
-    @Column(name = "notes")
-    private String notes;
 
-    public Order_details(Order order, Recipe recipe, Integer quantity, Float price, String notes) {
+
+    public Order_details(Order order, Recipe recipe, Integer quantity, Float price) {
         this.order = order;
         this.recipe = recipe;
         this.quantity = quantity;
         this.price = price;
-        this.notes = notes;
     }
 
     public Order_details() {
@@ -76,13 +74,6 @@ public class Order_details {
         this.price = price;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 }
 
 //@Embeddable

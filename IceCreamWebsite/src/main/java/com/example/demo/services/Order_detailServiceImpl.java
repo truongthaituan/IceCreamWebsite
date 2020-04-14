@@ -48,6 +48,17 @@ public class Order_detailServiceImpl implements Order_detailService {
             return null;
         }
     }
+
+    @Override
+    public List<Order_details> findOrderDetailsByRecipe(Long recipeId) {
+        try {
+            List<Order_details> order_details = em.createQuery("SELECT e FROM Order_details e where e.recipe.id = '"+recipeId+"'").getResultList();
+            return order_details;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
 //
 //    @Override
 //    @Transactional

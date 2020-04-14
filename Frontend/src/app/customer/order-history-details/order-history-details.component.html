@@ -20,7 +20,7 @@
       max-width: 1122px;margin-left: 5px;height: 40px;">
         <div class="row">
           <div class="col-sm-5" style="font-size: x-large;color: blue;">
-          Order
+          Order Details
         </div>
         <div style="font-size: medium;color: red;" *ngIf = "statusCRUD != ''">
           {{statusCRUD}}
@@ -63,10 +63,6 @@
     <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>price </th>
         <td mat-cell *matCellDef="let row"> {{row.price}} </td>
-      </ng-container>
-      <ng-container matColumnDef="notes">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> notes </th>
-        <td mat-cell *matCellDef="let row" id="notes">{{ row.notes}} </td>
       </ng-container>
  
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

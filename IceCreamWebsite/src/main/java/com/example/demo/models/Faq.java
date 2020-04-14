@@ -10,7 +10,7 @@ public class Faq {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long faq_id;
+    private Long faqId;
     @Column(name = "question")
     private String question;
     @Column(name = "answer")
@@ -24,16 +24,22 @@ public class Faq {
         this.answer = answer;
         this.status = status;
     }
+    public Faq(Long faqId,String question, String answer, Boolean status) {
+        this.faqId = faqId;
+        this.question = question;
+        this.answer = answer;
+        this.status = status;
+    }
 
     public Faq() {
     }
 
-    public Long getFaq_id() {
-        return faq_id;
+    public Long getFaqId() {
+        return faqId;
     }
 
-    public void setFaq_id(Long faq_id) {
-        this.faq_id = faq_id;
+    public void setFaqId(Long faqId) {
+        this.faqId = faqId;
     }
 
     public String getQuestion() {

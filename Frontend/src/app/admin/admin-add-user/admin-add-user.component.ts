@@ -70,18 +70,18 @@ export class AdminAddUserComponent implements OnInit {
       else {
         this.registerForm.value.roles = [{"id": parseInt(this.registerForm.value.roles)}];
         this.registerForm.value.avatar = $('input[type=file]').val().replace(/C:\\fakepath\\/i, 'images/');  
-        console.log(this.registerForm.value.avatar);
-        console.log(JSON.stringify(this.registerForm.value)); 
+        // console.log(this.registerForm.value.avatar);
+        // console.log(JSON.stringify(this.registerForm.value)); 
         this.userService.register(JSON.stringify(this.registerForm.value))
           .subscribe(
             data => {
-              console.log(data);
+              // console.log(data);
               this.statusRegister = true;
               this._router.navigate(['/manageUser']);
               console.log("Add User Successfully!");
             },
             error => {
-              console.log(error);
+              // console.log(error);
               this.errRegister = "Tài khoản có thể đã tồn tại!";
             })
       }

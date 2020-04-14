@@ -28,8 +28,17 @@ body {
   color: var(--mainPink);
   font-size: 25px;
   transition: all 0.5s ease-in-out;
+  border-style: solid;
+  border-color: #83744C;
 }
-
+username.disabled {
+  pointer-events: none;
+}
+#infor{
+  color: var(--mainPink);
+  font-size: 25px;
+  transition: all 0.5s ease-in-out;
+}
 /* end of nav links */
 /* info icons */
 .cart-info__icon {

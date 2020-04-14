@@ -28,4 +28,7 @@ export class RecipeService {
   deleteRecipe(recipeId: number) {
     return this.apiService.delete("/recipes" + `/${recipeId}`).pipe(map(data => data))
   }
+  getRecipeByicecreamId(icecreamId){
+    return this.apiService.get("/recipes/icecream" + `/${icecreamId}`).pipe(map(data => data))
+  }
 }

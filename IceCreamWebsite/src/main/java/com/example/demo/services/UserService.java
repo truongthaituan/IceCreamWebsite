@@ -19,4 +19,6 @@ public interface UserService {
     UserDTO updateUserRoles(Long id, List<Long> roleIds);
     Boolean changePassword(UserUpdateDTO userUpdateDTO);
     Response login(String username, String password);
+    boolean exists(User user);
+
 }

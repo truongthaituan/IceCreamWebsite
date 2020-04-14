@@ -40,22 +40,23 @@ export class AppComponent {
   userName = localStorage.getItem('userName');
   statusLogin = localStorage.getItem('statusLogin');
   CartRecipe: Array<Recipe>
-
+  roleName: string = ""
   ngOnInit() {
-    var cartInfo = document.getElementById('cart-info');
-    var cart = document.getElementById('cart');
-    cartInfo.addEventListener("click", function () {
-      cart.classList.toggle("show-cart");
-    });
+
     this.authService.authInfo.subscribe(val => {
       this.isLoggedIn = val.loggedIn;
       this.roles = val.roles;
     });
-    // s
+    this.roleName = localStorage.getItem("roleName");
+    console.log(this.roleName)
   }
 
   moveToLogin() {
     return this._router.navigate(['/login']);
+  }
+  
+  moveToRegister() {
+    return this._router.navigate(['/customerRegister']);
   }
   moveToAdminCustomer() {
     return this._router.navigate(['/manageCustomer']);

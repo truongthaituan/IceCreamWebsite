@@ -186,4 +186,8 @@ public class UserServiceImpl implements UserService {
         }
         return response;
     }
+    @Override
+    public boolean exists(User user) {
+        return userRepository.findByuserName(user.getUserName()) != null;
+    }
 }

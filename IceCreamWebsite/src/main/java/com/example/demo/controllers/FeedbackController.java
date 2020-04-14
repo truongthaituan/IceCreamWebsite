@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.common.MapperUtil;
 import com.example.demo.dto.FeedbackDTO;
+import com.example.demo.dto.StatusCRUD;
 import com.example.demo.models.Feedback;
 import com.example.demo.services.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,12 +63,14 @@ public class FeedbackController {
                 HttpStatus.OK);
     }
     @RequestMapping(value = "/feedbacks/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteFeedback(@PathVariable("id") Long id) {
+    public ResponseEntity<StatusCRUD> deleteFeedback(@PathVariable("id") Long id) {
+        StatusCRUD statusCRUD;
         Feedback feedback = feedbackService.findFeedbackById(id);
         if (feedback == null) {
             return new ResponseEntity<>( HttpStatus.NO_CONTENT);
         }
         feedbackService.deleteFeedback(id);
-        return new ResponseEntity<>("Delete Successfully", HttpStatus.OK);
+        statusCRUD = new StatusCRUD("Delete Feedback Successfully!");
+        return new ResponseEntity<>(statusCRUD, HttpStatus.OK);
     }
 }

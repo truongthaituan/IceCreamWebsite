@@ -61,17 +61,19 @@ export class AdminFeedbackComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  // deleteById(user_id: string) {
-  //   if (confirm('Do you want to remove this user ?') == true) {
-  //   this.userService.deleteUser(user_id).subscribe(
-  //     data=>{ 
-  //       console.log(data);
-  //       this.ngOnInit();
-  //     },
-  //   error=>console.log(error)
-  //   )
-  //   }
-  // }
+  deleteById(feedbackId: number) {
+    if (confirm('Do you want to remove this feedback ?') == true) {
+    this.feedbackService.deleteFeedback(feedbackId).subscribe(
+      data=>{ 
+        console.log(data);
+        this.statusCRUD = "Delete Feedback Successfully!";
+        setTimeout(() => {  this.statusCRUD = ""; }, 4000);
+        this.ngOnInit();
+      },
+    error=>console.log(error)
+    )
+    }
+  }
   getFeedbackById(feedbackId)
   {
     return this._router.navigate(["/manageFeedbackDetails" + `/${feedbackId}`]);

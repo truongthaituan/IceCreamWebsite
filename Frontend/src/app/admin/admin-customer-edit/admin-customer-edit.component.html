@@ -1,0 +1,139 @@
+<style>.col button{
+    background-color: blue;
+    color: white;
+    width: 133%;
+  }
+  .button a{
+    float: right;
+    background-color: #00FF33;
+    border:1px solid white;
+    width: 100px;
+    text-align: center;
+    font-size: 15px;
+   color: blue;
+  }
+  </style>
+<form  #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)" class="appointment-form" style="color: #555555;">
+<div id="content" style="margin-top: -5.6px;margin-left: 1px;">
+    <div class="parent">
+       
+        <div class="box-one">
+            <h3>Edit Customer</h3>
+       
+        <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">UserName</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="userName" #name="ngModel"
+                [(ngModel)]="customerService.customer.userName"  required style="font-size: 15px;width: 180px;">
+          </div>
+          </div>
+       
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Phone Number</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="phone" #name="ngModel"
+                [(ngModel)]="customerService.customer.phone" style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Email</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="email" #name="ngModel"
+                [(ngModel)]="customerService.customer.email" style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Address</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="address" #name="ngModel"
+                [(ngModel)]="customerService.customer.address" style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Date Of Birth</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control"  type="text" name="dateOfBirth" #name="ngModel"
+                [(ngModel)]="customerService.customer.dateOfBirth" style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+         
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Status</label>
+            </div>
+            <div class="col-sm-6">    
+                      <select name="status" [(ngModel)]="customerService.customer.status" style="color: #495057;
+                      font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" >
+                  <!-- <option ></option> -->
+                  <option value="true">Active</option>
+                  <option value="false">Block</option>
+                  </select>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Gender</label>
+            </div>
+            <div class="col-sm-6" >
+                  <select name="gender" [(ngModel)]="customerService.customer.gender" style="color: #495057;
+                  font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" >
+              <!-- <option ></option> -->
+              <option value="true">Male</option>
+              <option value="false">Female</option>
+              </select>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+                <label style="float: right;font-size: 15px;color: #fff;">Number Of Login Failed</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="numberOfLoginFailed" #name="ngModel"
+                [(ngModel)]="customerService.customer.numberOfLoginFailed" style="font-size: 15px;width: 180px;" required>
+          </div>
+          </div>
+          <div style="margin-top:50px;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="contact-link" target="_blank"  type="submit" style="color: black;"> Save </button>
+                </div>
+                <div class="col-sm-6">
+                    <button class="contact-link" target="_blank" type="button" (click) = "cancel();" style="color: black;"> Cancel</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="box-two">
+          <div class="image" >
+          <!-- <img src="../../../assets/{{userService.user.avatar}}" >
+          <input type="file" name = "avatar" id="upload"  onchange="readURL(this)" [(ngModel)]="userService.user.avatar" 
+          style="font-size: 12px;color: black;font-weight: 500;"/> -->
+          <img id="output"  src="../../../assets/{{customerService.customer.avatar}}">
+                <input name="photo" type="file" accept="image/*"   style="font-size: 12px;color: black;font-weight: 500;"
+                onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"  #name="ngModel"
+                [(ngModel)]="customerService.customer.avatar">
+          </div>
+        
+        </div>
+
+      </div>
+  </div>
+  </form>
+  <!-- partial -->

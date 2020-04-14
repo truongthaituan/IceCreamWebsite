@@ -5,6 +5,7 @@ import { Location, DatePipe } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { Customer } from 'src/app/services/customer-service/customer.model';
 import { Payment } from 'src/app/services/payment-service/payment.model';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 declare var $:any;
 @Component({
   selector: 'app-admin-order-details',
@@ -12,13 +13,19 @@ declare var $:any;
   styleUrls: ['./admin-order-details.component.css']
 })
 export class AdminOrderDetailsComponent implements OnInit {
-
+  isLoggedIn: boolean = false
+  roles: string[] = []
   constructor(private _router: Router,private route: ActivatedRoute,
-    private orderService: OrderService, private location: Location) {
+    private orderService: OrderService, private location: Location , private authService: AuthService) {
   
  }
 
 ngOnInit() {
+  
+  this.authService.authInfo.subscribe(val => {
+    this.isLoggedIn = val.loggedIn;
+    this.roles = val.roles;
+  });
  let id = this.route.snapshot.paramMap.get('id');
  console.log(id);
  this.resetForm();
@@ -49,9 +56,7 @@ getOrderById(id: number){
   this.orderService.order.createDate = String(Object.values(res)[4]);
   this.orderService.order.deliveryDetail = String(Object.values(res)[5]);
   this.orderService.order.notes = String(Object.values(res)[6]);
-  this.orderService.order.status = Boolean(Object.values(res)[7]);
-  // this.recipeService.recipe = res as Recipe;
-  console.log(Boolean(Object.values(res)[6]))
+  this.orderService.order.status = String(Object.values(res)[7]);
   })
 }
 
@@ -60,25 +65,11 @@ previousUrl: string;
 cancel(){
   this.location.back();
 }
+moveToManageOrderDetails(id){
+  return this._router.navigate(["/manageOrderDetailsUser" + `/${id}`]);
+ }
+ moveToManageOrderEdit(id){
+  return this._router.navigate(["/manageOrderEdit" + `/${id}`]);
+ }
 
-// onSubmit(form: NgForm) {
-//   let id = this.route.snapshot.paramMap.get('id');
-//   if (confirm('Do you want to update information this recipe ?') == true) {
-//    form.value.image =  $('input[type=file]').val().replace(/C:\\fakepath\\/i, 'images/');
-//    console.log(form.value.image);
-//    form.value.id = parseInt(id);
-//    form.value.user = { "userId":  form.value.userId };
-//    form.value.icecream = { "id":  form.value.icecreamId };
-//   this.recipeService.updateRecipe(form.value).subscribe(
-//    data => {
-//      console.log(data);
-//      this.location.back();
-//     // this.showMsg = true;
-//     // sessionStorage.setItem('showMsg',String(this.showMsg))
-//   },
-//    error => console.log(error)
-//   );
-//    console.log('Your form data: '+  form.value)
-//     }
-//   }
 }

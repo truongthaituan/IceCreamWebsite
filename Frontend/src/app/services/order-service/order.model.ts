@@ -6,5 +6,5 @@ export class Order {
     createDate: string;
     deliveryDetail: string;
     notes: string;
-    status: boolean;
+    status: string;
 }

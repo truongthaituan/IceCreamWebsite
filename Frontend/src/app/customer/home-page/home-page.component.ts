@@ -6,6 +6,8 @@ import { NgForm } from '@angular/forms';
 import { User } from 'src/app/user-service/user.model';
 import { RecipeService } from 'src/app/services/recipe-service/recipe.service';
 import { Recipe } from 'src/app/services/recipe-service/recipe.model';
+import { IcecreamService } from 'src/app/services/icecream-service/icecream.service';
+import { Icecream } from 'src/app/services/icecream-service/icecream.model';
 declare var $:any;
 @Component({
   selector: 'app-home-page',
@@ -20,11 +22,13 @@ export class HomePageComponent implements OnInit {
   items: any;
   collection = [];
   selectedCategory: String = "";
+
+
   //alert
   alertMessage = "";
   alertSucess = false;
   alertFalse = false;
-constructor(private _router: Router, private recipeService: RecipeService){}
+constructor(private _router: Router, private recipeService: RecipeService, private icecreamService : IcecreamService){}
 //chứa thông tin giỏ hàng
 CartRecipe = [];
 TongTien = 0;
@@ -33,7 +37,7 @@ le = 0;
   ngOnInit() {
     this.refreshRecipeList();
     this.getTotalCountAndPrice();
-    
+    this.refreshIceCreamList();
   }
   lengthCartRecipe = 0;
   // set độ dài của giỏ hàng
@@ -63,10 +67,23 @@ le = 0;
 
   refreshRecipeList(){
     this.recipeService.getRecipeList().subscribe((res) => {
-      this.recipeService.recipes = res as Recipe[];
+      this.recipes = res as Recipe[];
       console.log(res)
     })
   }
+  getRecipeListByIceCreamId(icecreamId){
+    this.recipeService.getRecipeByicecreamId(icecreamId).subscribe((res) => {
+      this.recipes = res as Recipe[];
+      console.log(res)
+    })
+  }
+
+  refreshIceCreamList(){
+    this.icecreamService.getIceCreamList().subscribe((res) => {
+      this.icecreamService.Icecreams = res as Icecream[];
+    })
+  }
+
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
     this.pageOfItems = pageOfItems;

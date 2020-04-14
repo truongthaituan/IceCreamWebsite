@@ -42,8 +42,11 @@
       height: 250px;
       width: 250px;
       border-radius: 50%;
-      margin-top: 50%;
+      margin-top: 40%;
       margin-left: 27%;
+  }
+  .panel-body{
+    border-bottom: 2px solid black;
   }
   .color-secondary, a {
     color: #F0DA50;

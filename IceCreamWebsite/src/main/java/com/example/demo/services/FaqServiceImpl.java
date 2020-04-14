@@ -30,4 +30,5 @@ public class FaqServiceImpl implements FaqService {
     public void deleteFaq(Long faq_id) {
         faqRepository.deleteById(faq_id);
     }
+
 }

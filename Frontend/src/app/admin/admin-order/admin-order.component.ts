@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { PaymentService } from 'src/app/services/payment-service/payment.service';
 import { OrderService } from 'src/app/services/order-service/order.service';
 import { Order } from 'src/app/services/order-service/order.model';
+import { OrderDetailsService } from 'src/app/services/orderdetails-service/order-details.service';
+import { OrderDetails } from 'src/app/services/orderdetails-service/order-details.model';
 @Component({
   selector: 'app-admin-order',
   templateUrl: './admin-order.component.html',
@@ -35,7 +37,7 @@ export class AdminOrderComponent implements OnInit {
   //   avatar: new FormControl(null),
   //   roles: new FormControl(null)
   // })
-  constructor(private _router: Router,private orderService: OrderService,
+  constructor(private _router: Router,private orderService: OrderService,private orderDetailsService: OrderDetailsService,
     private authService: AuthService) {
 
   }
@@ -79,18 +81,36 @@ export class AdminOrderComponent implements OnInit {
     return this._router.navigate(["/manageOrderDetails" + `/${orderId}`]);
   }
 
-  deleteOrderById(id)
-  {
-    if (confirm('Do you want to remove this order?') == true) {
+  // deleteOrderById(id)
+  // {
+  //   if (confirm('Do you want to remove this order?') == true) {
 
-      this.orderService.deleteOrder(id).subscribe(data=>{ 
-          console.log(data);
-         this.statusCRUD = "Delete This Order Successfully!";
-         setTimeout(() => {  this.statusCRUD = ""; }, 4000);
-          this.ngOnInit();
-        },
-      error=>console.log(error))   
-    }
+  //     this.orderService.deleteOrder(id).subscribe(data=>{ 
+  //         console.log(data);
+  //        this.statusCRUD = "Delete This Order Successfully!";
+  //        setTimeout(() => {  this.statusCRUD = ""; }, 4000);
+  //         this.ngOnInit();
+  //       },
+  //     error=>console.log(error))   
+  //   }
+  // }
+  deleteOrderById(orderId) {
+    if (confirm('Do you want to delete this order?') == true) {
+		this.orderDetailsService.getOrderDetailsByOrder(orderId).subscribe((res) => {
+      console.log(res)
+      this.orderDetailsService.orderDetails = res as OrderDetails[];
+      for(let i = 0; i <  this.orderDetailsService.orderDetails.length;i++){
+        this.orderDetailsService.deleteOrderDetails(this.orderDetailsService.orderDetails[i].orderDetailsId).subscribe(res =>{
+          console.log(res)   
+          this.orderService.deleteOrder(orderId).subscribe(res => {
+            console.log(res)
+            this.statusCRUD = "Delete This Order Successfully!";
+            setTimeout(() => {  this.statusCRUD = ""; }, 4000);
+            this.ngOnInit();
+          })  
+        })
+      }   
+    });  
   }
-
+}
 }

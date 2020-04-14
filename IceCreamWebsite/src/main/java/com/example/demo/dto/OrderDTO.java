@@ -20,10 +20,10 @@ public class OrderDTO {
 
     private String notes;
 
-    private Boolean status;
+    private String status;
 
     public OrderDTO(Long id, Customer customer, Payment payment, String paymentOption,
-                    Date createDate, String deliveryDetail, String notes, Boolean status) {
+                    Date createDate, String deliveryDetail, String notes, String status) {
         this.id = id;
         this.customer = customer;
         this.payment = payment;
@@ -93,11 +93,11 @@ public class OrderDTO {
         this.notes = notes;
     }
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

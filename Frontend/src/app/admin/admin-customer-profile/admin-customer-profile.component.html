@@ -13,7 +13,6 @@
    color: blue;
   }
   </style>
-<form  #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)" class="appointment-form" style="color: #555555;">
 <div id="content" style="margin-top: -5.6px;margin-left: 1px;">
     <div class="parent">
        
@@ -25,7 +24,7 @@
                 <label style="float: right;font-size: 15px;color: #fff;">UserName</label>
             </div>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="userName" #name="ngModel"
+                <input class="form-control" type="text" name="userName" #name="ngModel" readonly
                 [(ngModel)]="customerService.customer.userName"  required style="font-size: 15px;width: 180px;">
           </div>
           </div>
@@ -36,7 +35,7 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Phone Number</label>
             </div>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="phone" #name="ngModel"
+                <input class="form-control" type="text" name="phone" #name="ngModel" readonly
                 [(ngModel)]="customerService.customer.phone" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
@@ -46,7 +45,7 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Email</label>
             </div>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="email" #name="ngModel"
+                <input class="form-control" type="text" name="email" #name="ngModel" readonly
                 [(ngModel)]="customerService.customer.email" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
@@ -56,7 +55,7 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Address</label>
             </div>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="address" #name="ngModel"
+                <input class="form-control" type="text" name="address" #name="ngModel" readonly
                 [(ngModel)]="customerService.customer.address" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
@@ -66,7 +65,7 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Date Of Birth</label>
             </div>
             <div class="col-sm-6">
-                <input class="form-control"  type="text" name="dateOfBirth" #name="ngModel"
+                <input class="form-control"  type="text" name="dateOfBirth" #name="ngModel" readonly
                 [(ngModel)]="customerService.customer.dateOfBirth" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
@@ -77,12 +76,13 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Status</label>
             </div>
             <div class="col-sm-6">    
-                      <select name="status" [(ngModel)]="customerService.customer.status" style="color: #495057;
+                      <!-- <select name="status" [(ngModel)]="customerService.customer.status" style="color: #495057;
                       font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" >
-                  <!-- <option ></option> -->
                   <option value="true">Active</option>
                   <option value="false">Block</option>
-                  </select>
+                  </select> -->
+                  <input class="form-control"  type="text" name="status" readonly
+                  value="{{customerService.customer.status ? 'Active' : 'Blocked'}}" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
           <br>
@@ -91,12 +91,13 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Gender</label>
             </div>
             <div class="col-sm-6" >
-                  <select name="gender" [(ngModel)]="customerService.customer.gender" style="color: #495057;
+                  <!-- <select name="gender" [(ngModel)]="customerService.customer.gender" style="color: #495057;
                   font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" >
-              <!-- <option ></option> -->
               <option value="true">Male</option>
               <option value="false">Female</option>
-              </select>
+              </select> -->
+              <input class="form-control"  type="text" name="gender"  readonly
+              value="{{customerService.customer.gender ? 'Male' : 'Female'}}" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
           <br>
@@ -105,14 +106,14 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Number Of Login Failed</label>
             </div>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="numberOfLoginFailed" #name="ngModel"
+                <input class="form-control" type="text" name="numberOfLoginFailed" #name="ngModel" readonly
                 [(ngModel)]="customerService.customer.numberOfLoginFailed" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
           <div style="margin-top:50px;">
             <div class="row">
                 <div class="col-sm-6">
-                    <button class="contact-link" target="_blank"  type="submit" style="color: black;"> Edit</button>
+                    <button class="contact-link" target="_blank"  type="submit" (click) = "moveToCustomerEdit(customerService.customer.customerId);" style="color: black;"> Edit</button>
                 </div>
                 <div class="col-sm-6">
                     <button class="contact-link" target="_blank" type="button" (click) = "cancel();" style="color: black;"> Cancel</button>
@@ -135,5 +136,4 @@
 
       </div>
   </div>
-  </form>
   <!-- partial -->

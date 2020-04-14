@@ -13,7 +13,6 @@
    color: blue;
   }
   </style>
-<form  #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="appointment-form" style="color: #555555;">
 <div id="content" style="margin-top: -5.6px;margin-left: 1px;">
     <div class="parent">
       
@@ -24,8 +23,8 @@
             <div class="col-sm-6">
                 <label style="float: right;font-size: 15px;color: #fff;">UserName</label>
             </div>
-            <div class="col-sm-6">
-                <input class="form-control" type="text" name="userName" #name="ngModel"
+            <div class="col-sm-6"> 
+                <input class="form-control" type="text" name="userName" #name="ngModel" readonly
                 [(ngModel)]="userService.user.userName"  required style="font-size: 15px;width: 180px;">
           </div>
           </div>
@@ -35,7 +34,7 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Phone Number</label>
             </div>
             <div class="col-sm-6">
-                <input class="form-control" type="text" name="phoneNumber" #name="ngModel"
+                <input class="form-control" type="text" name="phoneNumber" #name="ngModel" readonly
                 [(ngModel)]="userService.user.phoneNumber" style="font-size: 15px;width: 180px;" required>
           </div>
           </div>
@@ -45,7 +44,7 @@
                 <label style="float: right;font-size: 15px;color: #fff;">Status</label>
             </div>
             <div class="col-sm-6">               
-                      <input name="status" [(ngModel)]="userService.user.status" style="color: #495057;
+                      <input name="status" value="{{userService.user.status ? 'Active' : 'Blocked'}}" style="color: #495057;
                       font-size: 15px;width: 180px;height: 34px;border-radius: 3px;" readonly>
           </div>
           </div>
@@ -53,7 +52,7 @@
           <div style="margin-top:50px;">
             <div class="row">
                 <div class="col-sm-3">
-                    <button class="contact-link" target="_blank"  type="submit" style="color: black;"> Edit</button>
+                    <button class="contact-link" target="_blank"  type="submit" style="color: black;" (click) = "moveToUserProfileEdit(userService.user.userName);"> Edit</button>
                 </div>
                 <div class="col-sm-3">
                     <button class="contact-link" target="_blank" type="button" (click) = "cancel();" style="color: black;"> Cancel</button>
@@ -81,5 +80,4 @@
 
       </div>
   </div>
-  </form>
   <!-- partial -->

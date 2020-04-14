@@ -1,0 +1,76 @@
+
+<style>
+    .col button{
+      background-color: blue;
+      color: white;
+      width: 125%;
+    }
+    .button a{
+      float: right;
+      background-color: #00FF33;
+      border:1px solid white;
+      width: 100px;
+      text-align: center;
+      font-size: 15px;
+     color: blue;
+    }
+  </style>
+    <div id="content" >
+      <div id="group_button"style="font-size:12px;
+      max-width: 1122px;margin-left: 5px;height: 40px;">
+        <div class="row">
+          <div class="col-sm-5" style="font-size: x-large;color: blue;">
+          Order Details
+        </div>
+        <div style="font-size: medium;color: red;" *ngIf = "statusCRUD != ''">
+          {{statusCRUD}}
+        </div>
+        <div class="col-sm-5">
+            <div class="button" style="margin-top: 10px;">            
+              <a type="button" (click) = "cancel();" >Cancel</a>
+            </div>
+          </div>
+        </div>
+    </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort style="width: 100%;" id = "mytable">
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="orderDetailsId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> orderDetailsId </th>
+        <td mat-cell *matCellDef="let row"> {{row.orderDetailsId}} </td>
+      </ng-container>
+  
+  <!-- Progress Column -->
+  <ng-container matColumnDef="order">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> order </th>
+    <td mat-cell *matCellDef="let row"> {{row.order.id}}</td>
+  </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="recipe">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> recipe </th>
+        <td mat-cell *matCellDef="let row"> {{row.recipe.title}}</td>
+      </ng-container>
+  
+
+    <!-- Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> quantity </th>
+      <td mat-cell *matCellDef="let row">{{ row.quantity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>price </th>
+        <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+      </ng-container>
+
+ 
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+    </div>
+  
