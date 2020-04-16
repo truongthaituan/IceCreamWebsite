@@ -78,6 +78,7 @@ import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-
 import { AdminRecipeEditComponent } from './admin/admin-recipe-edit/admin-recipe-edit.component';
 import { ManageOrderDetailsComponent } from './user/manage-order-details/manage-order-details.component';
 import { OrderDetailsEditComponent } from './user/order-details-edit/order-details-edit.component';
+import { CustomerProfileComponent } from './customer/customer-profile/customer-profile.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { OrderDetailsEditComponent } from './user/order-details-edit/order-detai
     UserProfileEditComponent,
     AdminRecipeEditComponent,
     ManageOrderDetailsComponent,
-    OrderDetailsEditComponent
+    OrderDetailsEditComponent,
+    CustomerProfileComponent
   ],
   imports: [
     BrowserModule,

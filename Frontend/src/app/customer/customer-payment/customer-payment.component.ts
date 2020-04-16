@@ -55,7 +55,6 @@ export class CustomerPaymentComponent implements OnInit {
     recipe: new FormControl(null, Validators.required),
     quantity: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
-    notes: new FormControl(null)
   })
   ngOnInit() {
     this.statusLogin = localStorage.getItem("statusLogin");
@@ -142,7 +141,8 @@ createPayment(){
     this.orderForm.value.customer = { "customerId": this.customerService.customer.customerId };
     this.orderForm.value.payment = { "paymentId": Object.values(res)[0]}; 
     this.orderForm.value.createDate = this.now;
-    this.orderForm.value.status = true;
+    this.orderForm.value.status = "New";
+    // this.orderForm.value.notes = this.orderService.order.notes;
     this.orderService.createOrder(this.orderForm.value).subscribe(res => {
       console.log(res)
       this.orderService.order = res as Order
@@ -151,7 +151,6 @@ createPayment(){
         this.orderDetailForm.value.recipe = { "id": this.CartRecipe[i].id };
         this.orderDetailForm.value.quantity = this.CartRecipe[i].quantity;
         this.orderDetailForm.value.price = this.CartRecipe[i].price;
-        this.orderDetailForm.value.notes = this.orderService.order.notes;
         this.orderDetailsService.createOrderDetails(this.orderDetailForm.value).subscribe(res => {
           console.log(res)
 

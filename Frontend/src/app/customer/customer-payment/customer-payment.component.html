@@ -48,9 +48,8 @@
 
             
               <div class="payment-option">
-                <h2><i class="ion-ios-list-outline"></i>Step 2 - Payment Options</h2>
-                <strong> Please select your preferred payment option:</strong>
-                <br>
+                <h2><i class="ion-ios-list-outline"></i>Step 2 - Order Information</h2>
+                <p class="lable1"> Payment Option </p>
                 <div class="pop">
                   <form [formGroup] = "orderForm">
                 <input checked="checked" type="radio" formControlName="paymentOption" id="PaymentMethodType_1" 
@@ -61,7 +60,6 @@
                 <i class="fa fa-gbp"></i>Gift Voucher
              
                 <br>
-                
                 <div class="your-firstname" >
                   <p class="lable1"> deliveryDetail</p>
                   <input type="text" formControlName="deliveryDetail" id="deliveryDetail" class="cat_textbox"   />
@@ -70,6 +68,7 @@
                     <p class="lable1">notes </p>
                     <input type="text" formControlName="notes" id="notes" class="cat_textbox"   />
                   </div> 
+                
                   </form>                   
                 </div>
               </div>
@@ -160,6 +159,7 @@
         </div>
        
         <form #form="ngForm" (ngSubmit)="SendMail(form.value)">
+         
         <div class="submit">
             <input class="cat_button" type="submit" (click) = "createPayment();" value="Confirm Details & Make Payment" id="catwebformbutton"/>
           </div>

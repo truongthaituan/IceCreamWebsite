@@ -70,7 +70,5 @@ onSubmit(form: NgForm) {
    console.log('Your form data: '+  form.value)
     }
   }
-  moveToChangePassword(){
-    return this._router.navigate(['/customerChangePassword']);
-  }
+
 }

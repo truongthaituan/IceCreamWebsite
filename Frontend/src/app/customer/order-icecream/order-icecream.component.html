@@ -27,7 +27,7 @@
                                 <h4 class="card-title" style="text-align: center;">
                                     <div class="row">
                                         <div class="col-sm-8">  
-                                             <a href="product.html" title="View Product" >{{recipe.title}}</a>
+                                             <a type="button" (click) = "getCustomerRecipeById(recipe.id)" title="View Product" >{{recipe.title}}</a>
                                             </div>
                                             <div class="col-sm-4">  
                                                 <p>{{recipe.price | currency:"USD" }}</p>

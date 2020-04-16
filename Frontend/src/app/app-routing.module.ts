@@ -33,6 +33,7 @@ import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-
 import { AdminRecipeEditComponent } from './admin/admin-recipe-edit/admin-recipe-edit.component';
 import { ManageOrderDetailsComponent } from './user/manage-order-details/manage-order-details.component';
 import { OrderDetailsEditComponent } from './user/order-details-edit/order-details-edit.component';
+import { CustomerProfileComponent } from './customer/customer-profile/customer-profile.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent},
@@ -50,7 +51,8 @@ const routes: Routes = [
   {path: 'manageCustomerEdit/:id', component: AdminCustomerEditComponent},
   {path: 'insertUser', component: AdminAddUserComponent},
   {path: 'insertRecipe', component: AddRecipeComponent},
-  {path: 'customerProfile/:userName',component: CustomerProfileEditComponent},
+  {path: 'customerProfile/:userName',component: CustomerProfileComponent},
+  {path: 'customerProfileEdit/:userName',component: CustomerProfileEditComponent},
   {path: 'customerRecipeDetails/:id',component: CustomerRecipeDetailsComponent},
   {path: 'customerPayment', component: CustomerPaymentComponent},
   {path: 'orderIcecream',component: OrderIcecreamComponent},

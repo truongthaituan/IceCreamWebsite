@@ -62,7 +62,10 @@ onChangePage(pageOfItems: Array<any>) {
   // update current page of items
   this.pageOfItems = pageOfItems;
 }
-
+getCustomerRecipeById(recipeId)
+{
+  return this._router.navigate(["/customerRecipeDetails" + `/${recipeId}`]);
+}
 
    //get total count and price 
    getTotalCountAndPrice() {

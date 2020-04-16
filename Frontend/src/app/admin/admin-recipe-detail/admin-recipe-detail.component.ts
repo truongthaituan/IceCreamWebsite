@@ -92,7 +92,21 @@ cancel(){
     return this._router.navigate(["/manageRecipeEdit" + `/${recipeId}`]);
   }
   feedbackList : Feedback[] = []
+  feedbackDetails = []
+  feedbackDetails2 = []
   getRecipeFeedback(recipeId){
+    function deduplicate(feedbackDetails,feedbackDetails2) {
+      let isExist = (feedbackDetails, x) => {
+        for(let i = 0; i < feedbackDetails.length; i++) {
+          if (feedbackDetails[i] === x) return true;
+        }
+        return false;
+      }
+      feedbackDetails.forEach(element => {
+        if(!isExist(feedbackDetails2, element)) feedbackDetails2.push(element);
+      });
+      return feedbackDetails2;
+    }
     this.orderDetailsService.getOrderDetailsByRecipe(recipeId).subscribe(res => {
       this.orderDetailsService.orderDetails = res as OrderDetails[];
       console.log(res)
@@ -103,8 +117,10 @@ cancel(){
           for(let j = 0; j <  this.feedbackService.feedbacks.length;j++ ){
             if(this.orderDetailsService.orderDetails[i].order.id == this.feedbackService.feedbacks[j].order.id) {
               console.log(this.feedbackService.feedbacks[j].order.id)
-              this.feedbackList.push(this.feedbackService.feedbacks[j])
-              // console.log(this.feedbackList)
+              // this.feedbackList.push(this.feedbackService.feedbacks[j])
+              this.feedbackDetails.push(this.feedbackService.feedbacks[j].details)
+              deduplicate(this.feedbackDetails, this.feedbackDetails2)
+              console.log(this.feedbackDetails2)
             }
           }
               
