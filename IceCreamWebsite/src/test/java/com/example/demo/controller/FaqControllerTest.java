@@ -120,22 +120,23 @@ public class FaqControllerTest {
 //    }
     // =========================================== Create New User ========================================
 
-//    @Test
-//    public void test_create_faq_success() throws Exception {
-//        Faq faq = new Faq("If my recipe is Prized what way i receive my prize money?",
-//                "You can go direct to Parlor Shop or your banking...",true);
-//        doNothing().when(faqService).saveOrUpdate(faq);
-//
-//        mockMvc.perform(
-//                post("/faqs")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(asJsonString(faq)))
-//                .andExpect(status().isCreated())
-//                .andExpect(header().string("location", containsString("http://localhost:8080/faqs")));
-//
+    @Test
+    public void test_create_faq_success() throws Exception {
+        Faq faq = new Faq("If my recipe is Prized what way i receive my prize money?",
+                "You can go direct to Parlor Shop or your banking...",true);
+
+        doNothing().when(faqService).saveOrUpdate(faq);
+
+        mockMvc.perform(
+                post("/faqs")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(faq)))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", containsString("http://localhost/faqs/")));
+
 //        verify(faqService, times(1)).saveOrUpdate(faq);
 //        verifyNoMoreInteractions(faqService);
-//    }
+    }
     // =========================================== CORS Headers ===========================================
 
     @Test

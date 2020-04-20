@@ -232,7 +232,9 @@ getRecipeById(id: number){
     this.orderDetailsService.getOrderDetailsByRecipe(recipeId).subscribe(res => {
       this.orderDetailsService.orderDetails = res as OrderDetails[];
         if( this.orderDetailsService.orderDetails == null){
-          console.log("Recipe ko dc feedback")
+                    this.alertFalse = true;
+                    this.alertMessage = "Your orders not exist this recipe so you can't send feedback!"
+                    setTimeout(() => {this.alertSucess = false; this.alertMessage = '';}, 4000);
         }else{
           for(let i = 0; i < this.orderDetailsService.orderDetails.length;i++){
             this.customerService.getCustomerByUserName(localStorage.getItem("userName")).subscribe(res => {

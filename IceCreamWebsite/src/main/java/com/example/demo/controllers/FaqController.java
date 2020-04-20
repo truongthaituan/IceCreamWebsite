@@ -41,7 +41,7 @@ public class FaqController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/faqs/{id}")
                 .buildAndExpand(faq.getFaqId()).toUri());
-        return new ResponseEntity<>(faq, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/faqs/{id}", method = RequestMethod.PUT)

@@ -10,4 +10,5 @@ public interface FaqService {
     Optional<Faq> getFaqById(Long fag_id);
     void saveOrUpdate(Faq fag);
     void deleteFaq(Long fag_id);
+
 }

@@ -73,17 +73,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/users/**").permitAll()
-                .antMatchers("/roles")
-                .permitAll()
+                .antMatchers("/users").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/roles").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
                 .antMatchers("/recipes")
                 .permitAll()
+                .antMatchers("/feedbacks").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER') or hasRole('ROLE_CUSTOMER')")
                 .antMatchers("/recipes/{id}")
                 .permitAll()
                 .antMatchers("/authenticate")
                 .permitAll()
-                .antMatchers("/customers/**")
-                .permitAll()
+                .antMatchers("/icecreams").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/customers/**").permitAll()
                 .anyRequest().authenticated().and().cors()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

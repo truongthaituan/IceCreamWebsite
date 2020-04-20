@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import org.mockito.internal.stubbing.answers.ThrowsException;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import org.springframework.test.context.junit4.SpringRunner;
@@ -35,7 +36,6 @@ public class FaqServiceTest {
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
-
     @Test
     public void getAllFaqsTest()
     {
@@ -71,4 +71,15 @@ public class FaqServiceTest {
         verify(faqRepository, times(1)).save(faq);
     }
 
+    @Test
+    public void testDeleteFaq() {
+        Faq faq = new Faq((long) 1, "Where can I get coupons for Parlor products?",
+                "Occasionally we offer coupons and samples on our website and Facebook page.", true);
+        Optional<Faq> optionalFaq = Optional.of(faq);
+        when(faqRepository.findById((long) 1)).thenReturn(optionalFaq);
+        // when
+        faqService.deleteFaq(faq.getFaqId());
+        // then
+        verify(faqRepository, times(1)).deleteById(faq.getFaqId());
+    }
 }
