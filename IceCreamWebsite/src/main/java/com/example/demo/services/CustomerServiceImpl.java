@@ -6,19 +6,20 @@ import com.example.demo.configSecurity.JwtUtil;
 import com.example.demo.dto.CustomerChangePassDTO;
 import com.example.demo.dto.CustomerDTO;
 import com.example.demo.dto.Response;
-import com.example.demo.exceptions.CustomException;
+import com.example.demo.models.ConfirmationToken;
 import com.example.demo.models.Customer;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
+import com.example.demo.repositories.ConfirmationTokenRepository;
 import com.example.demo.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
     @Autowired
+    ConfirmationTokenRepository confirmationTokenRepository;
+    @Autowired
+    EmailSenderService emailSenderService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtUtil jwtUtil;
@@ -34,12 +39,12 @@ public class CustomerServiceImpl implements CustomerService {
     private AuthenticationManager authenticationManager;
     @Override
     public List<CustomerDTO> findAll() {
-        return MapperUtil.mapList(customerRepository.findAll(),CustomerDTO.class);
+        return MapperUtil.mapList(customerRepository.findAll(), CustomerDTO.class);
     }
 
     @Override
     public CustomerDTO getCustomerById(Long customer_id) {
-        return MapperUtil.mapObject(customerRepository.findById(customer_id).get(),CustomerDTO.class);
+        return MapperUtil.mapObject(customerRepository.findById(customer_id).get(), CustomerDTO.class);
     }
 
     @Override
@@ -48,14 +53,25 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO registerCustomer(Customer customer) {
+    public ConfirmationToken registerCustomer(Customer customer) {
         customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
-        return MapperUtil.mapObject(customerRepository.save(customer),CustomerDTO.class);
+        customerRepository.save(customer);
+//        return MapperUtil.mapObject(,CustomerDTO.class);
+        ConfirmationToken confirmationToken = new ConfirmationToken(customer);
+        confirmationTokenRepository.save(confirmationToken);
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(customer.getEmail());
+        mailMessage.setSubject("Complete Registration!");
+        mailMessage.setFrom("truongthaituan98@gmail.com");
+        mailMessage.setText("To confirm your account, please click here : "
+                +"http://localhost:4200/confirm-account/"+confirmationToken.getConfirmationToken());
+        emailSenderService.sendEmail(mailMessage);
+        return confirmationToken;
     }
 
     @Override
     public CustomerDTO updateCustomer(Customer customer) {
-        return MapperUtil.mapObject(customerRepository.save(customer),CustomerDTO.class);
+        return MapperUtil.mapObject(customerRepository.save(customer), CustomerDTO.class);
     }
 
 
@@ -135,5 +151,4 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return response;
     }
-
 }

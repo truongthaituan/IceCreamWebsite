@@ -1,9 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.common.MapperUtil;
-import com.example.demo.configSecurity.JwtUtil;
 import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.LoginResDTO;
 import com.example.demo.dto.Response;
 import com.example.demo.services.CustomerService;
 import com.example.demo.services.UserService;

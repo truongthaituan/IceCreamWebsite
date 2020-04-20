@@ -5,6 +5,9 @@
     <div *ngIf="showErrorMessage">
       <p style="color: red;text-align: center;font-size: 15px;">{{ errString }}</p>
      </div>
+     <div *ngIf="statusRegister">
+      <p style="color: green;text-align: center;font-size: 15px;">{{ alertMessage }}</p>
+     </div>
   <h2>Sign up</h2>
       <div class="form-group">
         <input type="text" class="form-control input-lg" formControlName="userName" placeholder="Username" required="required">

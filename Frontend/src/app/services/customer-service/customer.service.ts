@@ -25,6 +25,9 @@ export class CustomerService {
   updateCustomer(customer: Customer){
     return this.apiService.put("/customers" + `/${customer.customerId}`, customer).pipe(map(data => data));
   }
+  confirmCustomer(token: any){
+    return this.apiService.post("/customers/confirm-account?token=",token).pipe(map(data => data));
+  }
   createCustomer(body:any){
     return this.apiService.post("/customers",body).pipe(map(data => data));
   }

@@ -34,6 +34,7 @@ import { AdminRecipeEditComponent } from './admin/admin-recipe-edit/admin-recipe
 import { ManageOrderDetailsComponent } from './user/manage-order-details/manage-order-details.component';
 import { OrderDetailsEditComponent } from './user/order-details-edit/order-details-edit.component';
 import { CustomerProfileComponent } from './customer/customer-profile/customer-profile.component';
+import { CustomerConfirmAccountComponent } from './customer/customer-confirm-account/customer-confirm-account.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent},
@@ -69,7 +70,9 @@ const routes: Routes = [
   {path: 'manageFeedback',component: AdminFeedbackComponent},
   {path: 'manageFeedbackDetails/:id',component: AdminFeedbackDetailsComponent},
   {path: 'manageOrderDetailsUser/:id',component: ManageOrderDetailsComponent},
-  {path: 'manageOrderEdit/:id',component: OrderDetailsEditComponent}
+  {path: 'manageOrderEdit/:id',component: OrderDetailsEditComponent},
+  {path: 'confirm-account/:token', component: CustomerConfirmAccountComponent}
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

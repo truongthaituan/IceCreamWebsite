@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.common.MapperUtil;
 import com.example.demo.dto.OrderDTO;
 import com.example.demo.dto.StatusCRUD;
 import com.example.demo.models.Order;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Optional;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class OrderController {

@@ -12,6 +12,7 @@ declare var $:any;
 export class CustomerRegisterComponent implements OnInit {
   errRegister: String = ""
   statusRegister: Boolean
+  alertMessage: string = ""
   registerForm: FormGroup = new FormGroup({
     userName: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.email, Validators.required]),
@@ -75,13 +76,13 @@ export class CustomerRegisterComponent implements OnInit {
           .subscribe(
             data => {
               console.log(data);
+              localStorage.setItem("tokenCustomer",JSON.stringify(data));
               this.statusRegister = true;
-              this._router.navigate(['/login']);
-              console.log("Add Customer Successfully!");
+              this.alertMessage = "A verification email has been sent to : " +this.registerForm.value.email;
             },
             error => {
               console.log(error);
-              this.errRegister = "Tài khoản có thể đã tồn tại!";
+              this.errRegister = "Account is already exist!";
             })
       }
   }

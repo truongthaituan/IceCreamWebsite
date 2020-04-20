@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.common.MapperUtil;
 import com.example.demo.dto.CustomerChangePassDTO;
 import com.example.demo.dto.CustomerDTO;
+import com.example.demo.models.ConfirmationToken;
 import com.example.demo.models.Customer;
 import com.example.demo.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.example.demo.dto.StatusCRUD;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/customers")
@@ -51,13 +50,10 @@ public class CustomerController {
 
     @RequestMapping(value = "",
             method = RequestMethod.POST)
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer, UriComponentsBuilder builder) {
-        customerService.registerCustomer(customer);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/customers/{id}")
-                .buildAndExpand(customer.getCustomerId()).toUri());
-        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+    public ResponseEntity<ConfirmationToken> createCustomer(@RequestBody Customer customer) {
+        return new ResponseEntity<>(customerService.registerCustomer(customer), HttpStatus.CREATED);
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer) {
        Customer currentCustomer = customerService.findCustomerById(id);
